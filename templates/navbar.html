@@ -58,11 +58,40 @@
             </form>
             <div class="btn-group" role="group"
                  aria-label="Basic outlined example">
-                <button type="button" class="btn btn-secondary vcenter" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover" data-bs-trigger="hover focus"><span class="material-symbols-outlined">account_circle</span>My account
+                <button type="button" class="btn btn-secondary vcenter"
+                        data-bs-container="body" data-bs-toggle="popover"
+                        data-bs-placement="bottom"
+                        data-bs-delay= '{"show": 0, "hide": 1000}'
+                        data-bs-html="true"
+                        data-bs-title="Login an enjoy!"
+                        data-bs-content="<div>
+                            <a class='btn btn-dark'>Login</a>
+                            <a class='btn btn-outline-dark'>Create account</a>
+                        </div>"
+                        data-bs-trigger="hover focus">
+                    <span
+                        class="material-symbols-outlined">account_circle</span>My
+                    account
                 </button>
-                <button type="button" class="btn btn-danger vcenter"><span class="material-symbols-outlined">favorite</span>Favorites
+                <button type="button" class="btn btn-danger vcenter"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="hover focus"
+                        data-bs-title="Add to favorites"
+                        data-bs-content="All your favorite items, one click away!">
+                    <span class="material-symbols-outlined">favorite</span>
+                    Favorites
                 </button>
-                <button type="button" class="btn btn-secondary vcenter"><span class="material-symbols-outlined">shopping_cart</span>Cart
+                <button type="button" class="btn btn-secondary vcenter"
+                data-bs-container="body" data-bs-toggle="popover"
+                        data-bs-placement="bottom"
+                        data-bs-delay= '{"show": 0, "hide": 1000}'
+                        data-bs-html="true"
+                        data-bs-title="Cart details"
+                        data-bs-content="<div>
+                            <a class='btn btn-outline-dark'>View cart</a>
+                        </div>"
+                        data-bs-trigger="hover focus">
+                    <span class="material-symbols-outlined">shopping_cart</span>Cart
                 </button>
             </div>
         </div>

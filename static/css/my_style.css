@@ -23,3 +23,11 @@
     margin-top: 102px;
 }
 
+.custom-popover {
+    max-width: 200px;
+    border-color: rgb(255, 0, 0);
+    background-color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+    padding: .5rem 1rem;
+}
+
