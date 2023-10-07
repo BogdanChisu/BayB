@@ -1,0 +1,25 @@
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: rgb(0,0,0);
+    padding: 0 12px;
+}
+
+.btn {
+    margin: 0 2px;
+}
+
+.on-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.some-text {
+    margin-top: 102px;
+}
+
