@@ -3,7 +3,8 @@
     align-items: center;
 }
 
-.btn-link {
+.btn-link,
+a {
     text-decoration: none;
     color: rgb(0,0,0);
     padding: 0 12px;
@@ -16,18 +17,39 @@
 .on-top {
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 90%;
+    margin: 0 5%;
+    border-bottom: #dd3b3b;
+    border-bottom-style: solid;
+    border-bottom-width: thick;
 }
 
 .some-text {
-    margin-top: 102px;
+    margin-top: 125px;
 }
 
-.custom-popover {
-    max-width: 200px;
-    border-color: rgb(255, 0, 0);
-    background-color: rgb(255, 0, 0);
-    color: rgb(255, 255, 255);
-    padding: .5rem 1rem;
+.from-pop {
+    width: 600px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #d3d3d3;
+    opacity: 90%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 260%;
+    left: 21vw;
 }
 
+.popover {
+    border-style: none;
+}
+
+.back-btn {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.col-md-4 {
+    padding-top: 10px;
+}

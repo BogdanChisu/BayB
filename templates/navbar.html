@@ -1,6 +1,9 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/BayB.gif' %}" alt="animated logo">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -18,12 +21,87 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item vcenter" href="#">
                             <span class="material-symbols-outlined">devices</span>
-                            <button class="btn btn-link" type="button" >Laptops, tablets, phones</button>
+                            <button class="btn btn-link" type="button"
+                            data-bs-container="body"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="click"
+                            data-bs-html="true"
+                            data-bs-content="<div class='row from-pop'>
+                                    <div class='col-md-4'>
+                                        <p><b><a href='#'>Laptops</a></b></p>
+                                        <p><a href='#'>Gaming</a></p>
+                                        <p><a href='#'>Business</a></p>
+                                        <br>
+                                        <p><b><a href='#'>Top brands</a></b></p>
+                                        <p><a href='#'>Acer</a></p>
+                                        <p><a href='#'>Apple</a></p>
+                                        <p><a href='#'>Asus</a></p>
+                                        <p><a href='#'>HP</a></p>
+                                        <p><a href='#'>Lenovo</a></p>
+                                    </div>
+                                    <div class='col-md-4'>
+                                        <p><b><a href='#'>Cell phones</a></b></p>
+                                        <p><a href='#'>Personal</a></p>
+                                        <p><a href='#'>Professional</a></p>
+                                        <br>
+                                        <p><b><a href='#'>Top brands</a></b></p>
+                                        <p><a href='#'>Samsung</a></p>
+                                        <p><a href='#'>Apple</a></p>
+                                        <p><a href='#'>Huawei</a></p>
+                                        <p><a href='#'>Motorola</a></p>
+                                    </div>
+                                    <div class='col-md-4'>
+                                        <p><b><a href='#'>Laptop Accessories</a></b></p>
+                                        <p><a href='#'>Carrying cases</a></p>
+                                        <p><a href='#'>Coolers and stands</a></p>
+                                        <p><a href='#'>Hard drives</a></p>
+                                        <br>
+                                        <p><b><a href='#'>Cell phone accessories</a></b></p>
+                                        <p><a href='#'>Chargers</a></p>
+                                        <p><a href='#'>Screen protectors</a></p>
+                                        <p><a href='#'>Headsets</a></p>
+                                    </div>
+                                    <a href={% url 'home' %} class='back-btn btn btn-outline-secondary'>Back</a>
+                                </div>">
+                                Laptops, tablets, phones
+                            </button>
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item vcenter" href="#">
                             <span class="material-symbols-outlined">stadia_controller</span>
-                            <button class="btn btn-link" type="button">Gaming</button>
+                            <button class="btn btn-link" type="button"
+                            data-bs-container="body"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="click"
+                            data-bs-html="true"
+                            data-bs-content="<div class='row from-pop'>
+                                    <div class='col-md-6'>
+                                        <p><b><a href='#'>PlayStation</a></b></p>
+                                        <p><a href='#'>XBox</a></p>
+                                        <p><a href='#'>Nintendo</a></p>
+                                        <br>
+                                        <p><b><a href='#'>Gaming Accessories</a></b></p>
+                                        <p><a href='#'>VR Gaming</a></p>
+                                        <p><a href='#'>GamePad Controller</a></p>
+                                        <p><a href='#'>Steering Wheels</a></p>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <p><b><a href='#'>Games</a></b></p>
+                                        <p><a href='#'>PlayStation</a></p>
+                                        <p><a href='#'>XBox</a></p>
+                                        <p><a href='#'>Nintendo</a></p>
+                                        <p><a href='#'>PC Games</a></p>
+                                        <br>
+                                        <p><b><a href='#'>PC Games</a></b></p>
+                                        <p><a href='#'>Samsung</a></p>
+                                        <p><a href='#'>Apple</a></p>
+                                        <p><a href='#'>Huawei</a></p>
+                                        <p><a href='#'>Motorola</a></p>
+                                    </div>
+                                    <a href={% url 'home' %} class='back-btn btn btn-outline-secondary'>Back</a>
+                                </div>">
+                                Gaming
+                            </button>
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item vcenter" href="#">
