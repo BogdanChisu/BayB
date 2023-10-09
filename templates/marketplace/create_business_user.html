@@ -1,0 +1,27 @@
+{% extends 'marketplace/market_base.html' %}
+
+{% block title %} Create Business User {% endblock %}
+
+{% block content %}
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card">
+                    <h3 class="text-center">Create user</h3>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-outline-primary">
+                            Create new business user
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

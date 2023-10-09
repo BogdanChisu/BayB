@@ -1,0 +1,36 @@
+{% load static %}
+<div class="row nav-holder">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary nav-market on-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/Bay-B_market_logo.png' %}"
+                     height="60px" alt="market logo">
+            </a>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search"
+                       placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search
+                </button>
+            </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="btn-group" role="group"
+                     aria-label="Basic outlined example">
+                    <a type="button" class="btn btn-secondary vcenter" href="{% url 'create-business-user' %}">
+                        <span
+                            class="material-symbols-outlined">how_to_reg</span>
+                        Sign Up
+                    </a>
+                    <button type="button" class="btn btn-danger vcenter">
+                        <span class="material-symbols-outlined">passkey</span>
+                        Authenticate
+                    </button>
+
+                </div>
+            </div>
+    </nav>
+</div>

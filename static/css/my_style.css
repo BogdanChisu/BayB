@@ -17,11 +17,12 @@ a {
 .on-top {
     position: fixed;
     top: 0;
-    width: 90%;
+    width: 90vw;
     margin: 0 5%;
     border-bottom: #dd3b3b;
     border-bottom-style: solid;
     border-bottom-width: thick;
+    height: 13.75vh;
 }
 
 .some-text {
@@ -52,4 +53,17 @@ a {
 
 .col-md-4 {
     padding-top: 10px;
+}
+
+.nav-holder {
+    display: flex;
+    background-color: #ffffff;
+    position: fixed;
+    width: 100vw;
+    height: 13.75vh;
+}
+
+.content-holder {
+    position: absolute;
+    top: 13.75vh;
 }
