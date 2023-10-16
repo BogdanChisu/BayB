@@ -137,21 +137,29 @@
                 </form>
                 <div class="btn-group" role="group"
                      aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-secondary vcenter"
+                    <button type="button" class="btn btn-secondary vcenter text-center"
                             data-bs-container="body" data-bs-toggle="popover"
                             data-bs-placement="bottom"
                             data-bs-delay= '{"show": 0, "hide": 1000}'
                             data-bs-html="true"
-                            data-bs-title="Login an enjoy!"
-                            data-bs-content="<div>
-                                <a class='btn btn-dark'>Login</a>
-                                <a class='btn btn-outline-dark'>Create account</a>
-                            </div>"
+
+                            {% if user.is_authenticated %}
+                                data-bs-title="Thank you for visiting"
+                                data-bs-content="<div>
+                                        <a href='{% url 'logout' %}' class='btn btn-dark'>Logout</a>
+                                        <a href='{% url 'password_change' %}' class='btn btn-outline-dark'>Change pasword</a>
+                                    </div>"
+                            {% else %}
+                                data-bs-title="Login an enjoy!"
+                                data-bs-content="<div>
+                                    <a href='{% url 'login' %}' class='btn btn-dark'>Login</a>
+                                    <a href='{% url 'create-user' %}' class='btn btn-outline-dark'>Create account</a>
+                                </div>"
+                            {% endif %}
+
                             data-bs-trigger="hover focus">
                         <span
-                            class="material-symbols-outlined">account_circle</span>My
-                        account
-                    </button>
+                            class="material-symbols-outlined">account_circle</span>My account</button>
                     <button type="button" class="btn btn-danger vcenter"
                             data-bs-toggle="popover"
                             data-bs-trigger="hover focus"

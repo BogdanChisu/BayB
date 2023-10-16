@@ -1,13 +1,12 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, \
+    PasswordChangeForm
 from django.contrib.auth.models import User
 
-from userextend.models import BusinessUser
 
-
-class BusinessUserForm(UserCreationForm):
+class UserForm(UserCreationForm):
     class Meta:
-        model = BusinessUser
-        fields = ('first_name', 'last_name', 'email', 'company')
+        model = User
+        fields = ('first_name', 'last_name', 'email')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -18,9 +17,29 @@ class BusinessUserForm(UserCreationForm):
                                                       'placeholder': 'Please enter your last name'})
         self.fields['email'].widget.attrs.update({'class': 'form-control',
                                                   'placeholder': 'Please specify your e-mail address'})
-        self.fields['company'].widget.attrs.update({'class': 'form-control',
-                                                    'placeholder': 'Please specify company name'})
         self.fields['password1'].widget.attrs.update({'class': 'form-control',
                                                       'placeholder': 'Enter password'})
         self.fields['password2'].widget.attrs.update({'class': 'form-control',
                                                       'placeholder': 'Confirm password'})
+
+
+class AuthenticationNewForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs.update({'class': 'form-control',
+                                                     'placeholder': 'Please type your username'})
+        self.fields['username'].widget.attrs.update({'class': 'form-control',
+                                                     'placeholder': 'Please type your password'})
+
+
+class PasswordChangeNewForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['old_password'].widget.attrs.update({'class': 'form-control',
+                                                         'placeholder': 'Type your current password'})
+        self.fields['new_password1'].widget.attrs.update({'class': 'form-control',
+                                                          'placeholder': 'Define your new password'})
+        self.fields['new_password2'].widget.attrs.update({'class': 'form-control',
+                                                          'placeholder': 'Confirm you new password'})
