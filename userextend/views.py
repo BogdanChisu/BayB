@@ -18,7 +18,7 @@ class UserCreateView(CreateView):
     template_name = 'userextends/create_user.html'
     model = User
     form_class = UserForm
-    success_url = reverse_lazy('market')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         if form.is_valid():

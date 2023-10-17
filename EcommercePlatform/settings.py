@@ -141,3 +141,5 @@ EMAIL_HOST = 'mail.bogdan-chisu.ro'
 EMAIL_HOST_USER = 'django_user@bogdan-chisu.ro'
 EMAIL_HOST_PASSWORD = 'Django1234'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = 'True'
+DEFAULT_FROM_EMAIL: "django_user@bogdan-chisu.ro"

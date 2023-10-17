@@ -3,7 +3,7 @@ function addHolaChicos() {
 
     for (let i = 0; i < 25; i++) {
         const h1Element = document.createElement('h1');
-        h1Element.textContent = 'Hola chicos' + i;
+        h1Element.textContent = 'Some content' + i;
         contentHolder.appendChild(h1Element);
     }
 }
