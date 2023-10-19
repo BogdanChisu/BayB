@@ -17,23 +17,32 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import views
 from django.contrib.auth.views import LoginView, PasswordChangeView, \
     PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView
 from django.urls import path, include
 
-from userextend.forms import AuthenticationNewForm, PasswordChangeNewForm
+from userextend.forms import AuthenticationNewForm, PasswordChangeNewForm, \
+    PasswordResetNewForm, SetPasswordNewForm
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
+    path("", include("category.urls")),
+    path("", include("product.urls")),
     path("", include("marketplace.urls")),
 
     path("", include("userextend.urls")),
     path("login/", LoginView.as_view(form_class=AuthenticationNewForm), name="login"),
     path("password_change/", PasswordChangeView.as_view(form_class=PasswordChangeNewForm),name="password_change"),
-    path("password_reset/", PasswordResetView.as_view(), name = "password_reset"),
-    path("password_reset/done/", PasswordResetDoneView.as_view(), name="password_reset_done"),
-    path("reset/<uidb64>/<token>/", PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path("password_reset/", PasswordResetView.as_view(form_class=PasswordResetNewForm), name="password_reset"),
+
+    path(
+        "reset/<uidb64>/<token>/",
+        views.PasswordResetConfirmView.as_view(form_class=SetPasswordNewForm),
+        name="password_reset_confirm",
+    ),
+
     path("", include("django.contrib.auth.urls")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

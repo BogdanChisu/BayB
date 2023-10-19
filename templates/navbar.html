@@ -2,156 +2,120 @@
 <div class="nav-holder">
     <nav class="navbar navbar-expand-lg bg-body-tertiary on-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{% static 'images/BayB.gif' %}" height="60px" alt="animated logo">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/BayB.gif' %}" height="60px"
+                     alt="animated logo">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if request.user.is_superuser %}
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-danger dropdown-toggle" href="#"
+                               role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">List of
+                                    categories</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'category-create' %}">Create
+                                    Category</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-danger dropdown-toggle" href="#"
+                               role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Products
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">List of
+                                    products</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'product-add' %}">Create
+                                    Product</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
                     <li class="nav-item dropdown">
-                        <button type="button"
-                                class="btn btn-secondary dropdown-toggle"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Products
-                        </button>
+                        <a class="btn btn-danger dropdown-toggle" href="#"
+                           role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            All categories
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item vcenter" href="#">
-                                <span class="material-symbols-outlined">devices</span>
-                                <button class="btn btn-link" type="button"
-                                data-bs-container="body"
-                                data-bs-toggle="popover"
-                                data-bs-trigger="click"
-                                data-bs-html="true"
-                                data-bs-content="<div class='row from-pop'>
-                                        <div class='col-md-4'>
-                                            <p><b><a href='#'>Laptops</a></b></p>
-                                            <p><a href='#'>Gaming</a></p>
-                                            <p><a href='#'>Business</a></p>
-                                            <br>
-                                            <p><b><a href='#'>Top brands</a></b></p>
-                                            <p><a href='#'>Acer</a></p>
-                                            <p><a href='#'>Apple</a></p>
-                                            <p><a href='#'>Asus</a></p>
-                                            <p><a href='#'>HP</a></p>
-                                            <p><a href='#'>Lenovo</a></p>
-                                        </div>
-                                        <div class='col-md-4'>
-                                            <p><b><a href='#'>Cell phones</a></b></p>
-                                            <p><a href='#'>Personal</a></p>
-                                            <p><a href='#'>Professional</a></p>
-                                            <br>
-                                            <p><b><a href='#'>Top brands</a></b></p>
-                                            <p><a href='#'>Samsung</a></p>
-                                            <p><a href='#'>Apple</a></p>
-                                            <p><a href='#'>Huawei</a></p>
-                                            <p><a href='#'>Motorola</a></p>
-                                        </div>
-                                        <div class='col-md-4'>
-                                            <p><b><a href='#'>Laptop Accessories</a></b></p>
-                                            <p><a href='#'>Carrying cases</a></p>
-                                            <p><a href='#'>Coolers and stands</a></p>
-                                            <p><a href='#'>Hard drives</a></p>
-                                            <br>
-                                            <p><b><a href='#'>Cell phone accessories</a></b></p>
-                                            <p><a href='#'>Chargers</a></p>
-                                            <p><a href='#'>Screen protectors</a></p>
-                                            <p><a href='#'>Headsets</a></p>
-                                        </div>
-                                        <a href={% url 'home' %} class='back-btn btn btn-outline-secondary'>Back</a>
-                                    </div>">
-                                    Laptops, tablets, phones
-                                </button>
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item vcenter" href="#">
-                                <span class="material-symbols-outlined">stadia_controller</span>
-                                <button class="btn btn-link" type="button"
-                                data-bs-container="body"
-                                data-bs-toggle="popover"
-                                data-bs-trigger="click"
-                                data-bs-html="true"
-                                data-bs-content="<div class='row from-pop'>
-                                        <div class='col-md-6'>
-                                            <p><b><a href='#'>PlayStation</a></b></p>
-                                            <p><a href='#'>XBox</a></p>
-                                            <p><a href='#'>Nintendo</a></p>
-                                            <br>
-                                            <p><b><a href='#'>Gaming Accessories</a></b></p>
-                                            <p><a href='#'>VR Gaming</a></p>
-                                            <p><a href='#'>GamePad Controller</a></p>
-                                            <p><a href='#'>Steering Wheels</a></p>
-                                        </div>
-                                        <div class='col-md-6'>
-                                            <p><b><a href='#'>Games</a></b></p>
-                                            <p><a href='#'>PlayStation</a></p>
-                                            <p><a href='#'>XBox</a></p>
-                                            <p><a href='#'>Nintendo</a></p>
-                                            <p><a href='#'>PC Games</a></p>
-                                            <br>
-                                            <p><b><a href='#'>PC Games</a></b></p>
-                                            <p><a href='#'>Samsung</a></p>
-                                            <p><a href='#'>Apple</a></p>
-                                            <p><a href='#'>Huawei</a></p>
-                                            <p><a href='#'>Motorola</a></p>
-                                        </div>
-                                        <a href={% url 'home' %} class='back-btn btn btn-outline-secondary'>Back</a>
-                                    </div>">
-                                    Gaming
-                                </button>
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item vcenter" href="#">
-                                <span class="material-symbols-outlined">local_laundry_service</span>
-                                <button class="btn btn-link" type="button">Cleaning and home improvement</button>
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item vcenter" href="#">
-                                <span class="material-symbols-outlined">hiking</span>
-                                <button class="btn btn-link" type="button">Outdoor activities</button>
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item vcenter" href="#">
-                                <span class="material-symbols-outlined">directions_bike</span>
-                                <button class="btn btn-link" type="button">Cycling</button>
-                            </a></li>
+                            {% for category in all_categories %}
+                                <li><a class="dropdown-item"
+                                       href="#">{{ category.name }}</a></li>
+                            {% endfor %}
+
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-danger dropdown-toggle" href="#"
+                           role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            All products
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for product in all_products %}
+                                <li><a class="dropdown-item"
+                                       href="#">{{ product.title }}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                     <li>
-                        <a href="#" type="button" class="btn btn-danger">Daily Special Offer</a>
+                        <a href="#" type="button" class="btn btn-danger">Daily
+                            Special Offer</a>
                     </li>
                     <li>
-                        <a href="#" type="button" class="btn btn-secondary">Used but useful</a>
+                        <a href="#" type="button" class="btn btn-secondary">Used
+                            but useful</a>
                     </li>
                 </ul>
 
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search"
                            placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search
+                    <button class="btn btn-outline-success" type="submit">
+                        Search
                     </button>
                 </form>
                 <div class="btn-group" role="group"
                      aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-secondary vcenter text-center"
+                    <button type="button"
+                            class="btn btn-secondary vcenter text-center"
                             data-bs-container="body" data-bs-toggle="popover"
                             data-bs-placement="bottom"
-                            data-bs-delay= '{"show": 0, "hide": 1000}'
+                            data-bs-delay='{"show": 0, "hide": 1000}'
                             data-bs-html="true"
 
                             {% if user.is_authenticated %}
-                                data-bs-title="Thank you for visiting"
-                                data-bs-content="<div>
+                            data-bs-title="Thank you for visiting"
+                            data-bs-content="<div>
                                         <a href='{% url 'logout' %}' class='btn btn-dark'>Logout</a>
                                         <a href='{% url 'password_change' %}' class='btn btn-outline-dark'>Change pasword</a>
                                     </div>"
                             {% else %}
-                                data-bs-title="Login an enjoy!"
-                                data-bs-content="<div>
+                            data-bs-title="Login an enjoy!"
+                            data-bs-content="<div>
                                     <a href='{% url 'login' %}' class='btn btn-dark'>Login</a>
                                     <a href='{% url 'create-user' %}' class='btn btn-outline-dark'>Create account</a>
                                 </div>"
@@ -159,7 +123,9 @@
 
                             data-bs-trigger="hover focus">
                         <span
-                            class="material-symbols-outlined">account_circle</span>My account</button>
+                                class="material-symbols-outlined">account_circle</span>My
+                        account
+                    </button>
                     <button type="button" class="btn btn-danger vcenter"
                             data-bs-toggle="popover"
                             data-bs-trigger="hover focus"
@@ -169,9 +135,9 @@
                         Favorites
                     </button>
                     <button type="button" class="btn btn-secondary vcenter"
-                    data-bs-container="body" data-bs-toggle="popover"
+                            data-bs-container="body" data-bs-toggle="popover"
                             data-bs-placement="bottom"
-                            data-bs-delay= '{"show": 0, "hide": 1000}'
+                            data-bs-delay='{"show": 0, "hide": 1000}'
                             data-bs-html="true"
                             data-bs-title="Cart details"
                             data-bs-content="<div>

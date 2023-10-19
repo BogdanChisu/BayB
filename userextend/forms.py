@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, \
-    PasswordChangeForm, PasswordResetForm
+    PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 
 
@@ -23,6 +23,7 @@ class UserForm(UserCreationForm):
                                                       'placeholder': 'Confirm password'})
 
 
+
 class AuthenticationNewForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -43,11 +44,19 @@ class PasswordChangeNewForm(PasswordChangeForm):
                                                           'placeholder': 'Define your new password'})
         self.fields['new_password2'].widget.attrs.update({'class': 'form-control',
                                                           'placeholder': 'Confirm you new password'})
-
-
 class PasswordResetNewForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['email'].widget.attrs.update({'class': 'form-control',
-                                                  'placeholder': 'Please enter your email address '})
+                                                  'placehodler': 'Specify your email address'})
+
+class SetPasswordNewForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+        self.fields['new_password1'].widget.attrs.update({'class': 'form-control',
+                                                          'placeholder': 'Specify your new password'})
+        self.fields['new_password2'].widget.attrs.update({'class': 'form-control',
+                                                           'placeholder': 'Confirm your new password'})

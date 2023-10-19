@@ -14,18 +14,36 @@ from userextend.models import History
 # Create your views here.
 
 
+def check_username(usr_name):
+    all_users = User.objects.filter(username=usr_name)
+    user_name_initial = usr_name
+    user_count = 0
+    while len(all_users) > 0:
+        usr_name = user_name_initial + '_' + str(user_count)
+        all_users = User.objects.filter(username=usr_name)
+        user_count += 1
+    return usr_name
+
+
 class UserCreateView(CreateView):
     template_name = 'userextends/create_user.html'
     model = User
     form_class = UserForm
     success_url = reverse_lazy('home')
 
+
     def form_valid(self, form):
         if form.is_valid():
             new_user = form.save(commit=False)
             new_user.first_name = new_user.first_name.title()
             new_user.last_name = new_user.last_name.title()
-            new_user.username = (f'{new_user.first_name[0].lower()}_{new_user.last_name.lower().replace(" ", "")}')
+
+            generate_username = f'{new_user.first_name[0].lower()}_{new_user.last_name.lower().replace(" ", "")}'
+            if User.objects.filter(username=generate_username).exists:
+                new_user.username = check_username(generate_username)
+            else:
+                new_user.username = (f'{new_user.first_name[0].lower()}_{new_user.last_name.lower().replace(" ", "")}')
+
             new_user.save()
 
             # send mail user creation
