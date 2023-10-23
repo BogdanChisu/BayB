@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}List of products{% endblock %}
+
+{% block content %}
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="row">
+                    {% if all_products %}
+                        {% for product in all_products %}
+                            <br>
+                            <div class="col-md-2">
+                                <br>
+                                <div class="card">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" height="150px" width="auto" alt="product image">
+                                    {% else %}
+                                        <div class="text-center">
+                                            <img src="{% static 'images/01default_product.jpg' %} height='150px' width='auto' alt='default image'">px
+                                        </div>
+                                    {% endif %}
+                                        <h5 class="card-title text-center">{{ product.manufacturer }} {{ product.model_name }}</h5>
+                                    <div class="card-body">
+                                        <p>{{ product.description }}</p>
+                                        <p>Rating: to implement, maybe</p>
+                                        <br>
+                                        <p><b>Price: {{ product.price }}</b></p>
+                                        <button type="submit" class="btn btn-outline-secondary vcenter">
+                                            <span class="material-symbols-outlined">shopping_basket</span>
+                                            Add to basket
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h1 class="text-center">No data available</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{%  endblock %}

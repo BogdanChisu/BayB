@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, \
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from category.models import Category, HistoryCategory
 from category.forms import CategoryForm
@@ -37,3 +37,12 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin,
                                           user=self.request.user)
 
         return redirect('home')
+
+
+class CategoryListView(ListView):
+    template_name = 'category/list_of_categories.html'
+    model = Category
+    context_object_name = 'all_categories'
+
+    def get_queryset(self):
+        return Category.objects.all()

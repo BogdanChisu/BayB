@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+            {% now "d-m-Y H:i:s" %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-md-4 offset-md-4">
+                {% if all_categories %}
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> </th>
+                                <th>Category Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in all_categories %}
+                            <tr>
+                                <td><a href="#">{{ forloop.counter }}</a></td>
+                                <td><a href="#"><span class="material-symbols-outlined">{{ category.special_character }}</span></a></td>
+                                <td><a href="#">{{ category.name }}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h1 class="text-center">No data available</h1>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

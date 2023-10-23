@@ -67,3 +67,8 @@ a {
     position: absolute;
     top: 13.75vh;
 }
+
+.card-title {
+    background-color: #dd3b3b;
+    color: #ffffff;
+}
