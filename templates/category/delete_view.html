@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete Category - {{ category }} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid content-holder">
+
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                {% if perms.category.delete_student %}
+                <div class="card-header">
+                    <h5 class="text-center">Delete - {{ category }}</h5>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <h5 class="text-center">Are you sure you want to delete
+                            {{ category }}?</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn
+                        btn-outline-success">Yes</button>
+                        <a class="btn btn-outline-secondary" href=
+                                "{% url 'list-of-categories' %}">No</a>
+                    </div>
+                </form>
+                {% else %}
+                    <div class="card-header">
+                        <h2 class="text-center">Permission not granted!</h2>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

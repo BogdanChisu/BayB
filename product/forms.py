@@ -38,3 +38,30 @@ class ProductForm(forms.ModelForm):
             self.errors['model_name'] = self.error_class([msg])
 
         return cleaned_data
+
+
+class ProductUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+        widgets = {
+            'category': Select(attrs={'class': 'form-select'}),
+            'title': TextInput(attrs={'class': 'form-control',
+                                      'placeholder': 'Enter product title'}),
+            'manufacturer': TextInput(attrs={'class': 'form-control',
+                                             'placeholder': 'Specify manufacturer'}),
+            'model_name': TextInput(attrs={'class': 'form-control',
+                                             'placeholder': 'Specify model'}),
+            'description': Textarea(attrs={'class': 'form-control',
+                                           'placeholder': 'Enter a brief product description'}),
+            'image': FileInput(attrs={'class': 'form-control',
+                                      'type': 'file'}),
+            'price': NumberInput(attrs={'class': 'form-control',
+                                        'placeholder': 'Please specify product price'}),
+            'in_stock': CheckboxInput(attrs={'class': 'form-check-input'}),
+            'is_active': CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+    def clean(self):
+        return Product().clean()

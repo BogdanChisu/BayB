@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} Update - {{ product }} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Update - {{ product }}</h5>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <div class="card-body">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit"
+                                class="btn btn-outline-success">Update</button>
+                        <a href="{% url 'list-of-products' %}" class="btn
+                        btn-outline-secondary">Cancel</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{%  endblock %}

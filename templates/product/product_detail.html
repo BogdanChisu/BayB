@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Details of Product - {{ product }} {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card text-center">
+                    <div class="card-header">
+                        Product Details
+                    </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Category:
+                                {{ product.category }}</h5>
+                            <p class="card-text"><strong>Manufacturer:
+                                {{ product.manufacturer }}</strong></p>
+                            <p class="card-text model-border"><strong>Model:
+                                {{ product.model_name }}</strong></p>
+                            <p class="card-text">Description:
+                                {{ product.description }}</p>
+                            <p class="card-text"><strong>Image:
+                                {{ product.image }}</strong></p>
+                            <p class="card-text">Price:
+                                {{ product.price }}</p>
+                            <a href="{% url 'list-of-products' %}" class="btn
+                            btn-secondary">Back</a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        Created at: <strong>
+                        {{ product.created_at|date:"d-m-Y H:i:s" }}</strong>
+                        Updated at: <strong>
+                        {{ product.updated_at|date:"d-m-Y H:i:s" }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

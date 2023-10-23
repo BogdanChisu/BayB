@@ -1,13 +1,14 @@
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, \
     LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
-from product.forms import ProductForm
+from product.forms import ProductForm, ProductUpdateForm
 from product.models import Product, HistoryProduct
 
 
@@ -50,3 +51,27 @@ class ProductListView(ListView):
 
     def get_queryset(self):
         return Product.objects.filter(is_active=True)
+
+
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin,
+                        UpdateView):
+    template_name = 'product/update_product.html'
+    model = Product
+    form_class = ProductUpdateForm
+    success_url = reverse_lazy('list-of-products')
+    permission_required = 'product.change_product'
+
+
+class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin,
+                        DetailView):
+    template_name = 'product/product_detail.html'
+    model = Product
+    permission_required = 'product.view_product'
+
+
+@login_required
+@permission_required('product.delete_product')
+def delete_product_modal(request, pk):
+    Product.objects.filter(id=pk).delete()
+    return redirect('list-of-products')
+

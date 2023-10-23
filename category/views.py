@@ -5,10 +5,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, \
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, \
+    DetailView
 
 from category.models import Category, HistoryCategory
-from category.forms import CategoryForm
+from category.forms import CategoryForm, CategoryUpdateForm
 
 
 class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin,
@@ -46,3 +47,25 @@ class CategoryListView(ListView):
 
     def get_queryset(self):
         return Category.objects.all()
+
+class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin,
+                         UpdateView):
+    template_name = 'category/update_category.html'
+    model = Category
+    form_class = CategoryUpdateForm
+    success_url = reverse_lazy('list-of-categories')
+    permission_required = 'category.change_category'
+
+class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin,
+                         DeleteView):
+    template_name = 'category/delete_view.html'
+    model = Category
+    success_url = reverse_lazy('list-of-categories')
+    permission_required = 'category.delete_category'
+
+
+class CategoryDetailView(LoginRequiredMixin, PermissionRequiredMixin,
+                         DetailView):
+    template_name = 'category/detail_category.html'
+    model = Category
+    permission_required = 'category/view_category'

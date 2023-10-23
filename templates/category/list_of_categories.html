@@ -36,6 +36,30 @@
                                 <td><a href="#">{{ forloop.counter }}</a></td>
                                 <td><a href="#"><span class="material-symbols-outlined">{{ category.special_character }}</span></a></td>
                                 <td><a href="#">{{ category.name }}</a></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-secondary dropdown-toggle"
+                                           href="#" role="button"
+                                           data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            Action
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item vcenter"
+                                                   href="{% url 'update-category' category.id %}"><span class="material-symbols-outlined">
+                                                edit
+                                            </span>&nbsp;Edit category</a></li>
+                                            <li><a class="dropdown-item vcenter"
+                                                   href="{% url 'category-detail-view' category.id %}"><span class="material-symbols-outlined">
+                                                preview
+                                            </span>&nbsp;View Details</a></li>
+                                            <li><a class="dropdown-item vcenter"
+                                                   href="{% url 'delete-view' category.id %}"><span class="material-symbols-outlined">
+                                                delete
+                                            </span>&nbsp;Delete category</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

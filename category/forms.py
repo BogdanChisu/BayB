@@ -11,8 +11,8 @@ class CategoryForm(forms.ModelForm):
 
         widgets = {
             'name': TextInput(attrs={'class': 'form-control',
-                                              'placeholder':
-                                                  'Specify category name'})
+                                     'placeholder':
+                                         'Specify category name'})
         }
 
     def clean(self):
@@ -25,3 +25,19 @@ class CategoryForm(forms.ModelForm):
             self.errors['name'] = self.error_class([msg])
 
         return cleaned_data
+
+
+class CategoryUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+        widgets = {
+            'name': TextInput(attrs={'class': 'form-control',
+                                     'placeholder': 'Please enter new category name'}),
+            'special_character': TextInput(attrs={'class': 'form-control',
+                                                  'placeholder': 'New special character'}),
+        }
+
+        def clean(self):
+            return Category().clean()

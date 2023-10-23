@@ -36,13 +36,67 @@
                                         <p>Rating: to implement, maybe</p>
                                         <br>
                                         <p><b>Price: {{ product.price }}</b></p>
-                                        <button type="submit" class="btn btn-outline-secondary vcenter">
-                                            <span class="material-symbols-outlined">shopping_basket</span>
-                                            Add to basket
-                                        </button>
+                                        <div class="btn-group">
+                                            <button type="submit"
+                                                    class="btn btn-outline-secondary">
+                                                Add to basket
+                                            </button>
+                                            <a class="btn btn-secondary dropdown-toggle btn-sm vcenter" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="material-symbols-outlined">settings</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item vcenter" href="{% url 'update-product' product.id %}">
+                                                    <span class="material-symbols-outlined">update</span>
+                                                    &nbsp;Update</a></li>
+                                                <li><a class="dropdown-item vcenter" href="{% url 'product-details' product.id %}">
+                                                    <span class="material-symbols-outlined">page_info</span>
+                                                    &nbsp;Details</a></li>
+                                                <li><a class="dropdown-item vcenter" data-bs-toggle="modal" data-bs-target="#product_{{ product.id }}" href="{% url 'product-delete-modal' product.id %}">
+                                                    <span class="material-symbols-outlined">delete</span>
+                                                    &nbsp;Delete
+                                                </a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            {% if perms.product.delete_product %}
+                                <div class="modal fade"
+                                     id="product_{{ product.id }}"
+                                     tabindex="-1"
+                                     aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5"
+                                                    id="exampleModalLabel">
+                                                    Modal
+                                                    delete - {{ product }}</h1>
+                                                <button type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete
+                                                {{ product }}?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                    No
+                                                </button>
+                                                <a href="{% url 'product-delete-modal' product.id %}"
+                                                   class="btn btn-danger">
+                                                    Yes
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     {% else %}
                         <h1 class="text-center">No data available</h1>

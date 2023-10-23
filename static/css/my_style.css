@@ -72,3 +72,9 @@ a {
     background-color: #dd3b3b;
     color: #ffffff;
 }
+
+.model-border {
+    border-style: solid;
+    border-color: #8c8989;
+    border-width: thin;
+}
