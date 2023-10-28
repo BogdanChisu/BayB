@@ -12,4 +12,5 @@ urlpatterns = [
          name='product-delete-modal'),
     path('product_detail/<int:pk>', views.ProductDetailView.as_view(),
          name='product-details'),
+    path('products_by_category/<int:pk>', views.products_by_category, name='products-by-category'),
 ]

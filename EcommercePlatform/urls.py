@@ -31,18 +31,15 @@ urlpatterns = [
     path("", include("category.urls")),
     path("", include("product.urls")),
     path("", include("marketplace.urls")),
-
+    path("", include("orders.urls")),
     path("", include("userextend.urls")),
     path("login/", LoginView.as_view(form_class=AuthenticationNewForm), name="login"),
     path("password_change/", PasswordChangeView.as_view(form_class=PasswordChangeNewForm),name="password_change"),
     path("password_reset/", PasswordResetView.as_view(form_class=PasswordResetNewForm), name="password_reset"),
-
     path(
         "reset/<uidb64>/<token>/",
         views.PasswordResetConfirmView.as_view(form_class=SetPasswordNewForm),
         name="password_reset_confirm",
     ),
-
     path("", include("django.contrib.auth.urls")),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

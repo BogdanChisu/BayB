@@ -16,7 +16,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if request.user.is_superuser %}
+
+                    {% if request.user.is_superuser or perms.product.add_product %}
                         <li class="nav-item dropdown">
                             <a class="btn btn-danger dropdown-toggle vcenter" href="#"
                                role="button" data-bs-toggle="dropdown"
@@ -64,25 +65,11 @@
                         <ul class="dropdown-menu">
                             {% for category in all_categories %}
                                 <li><a class="dropdown-item"
-                                       href="#">{{ category.name }}</a></li>
-                            {% endfor %}
-
-
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="btn btn-danger dropdown-toggle" href="#"
-                           role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            All products
-                        </a>
-                        <ul class="dropdown-menu">
-                            {% for product in all_products %}
-                                <li><a class="dropdown-item"
-                                       href="#">{{ product.title }}</a></li>
+                                       href="{% url 'products-by-category' category.id %}">{{ category.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
+
                     <li>
                         <a href="#" type="button" class="btn btn-danger">Daily
                             Special Offer</a>
@@ -111,10 +98,10 @@
                             data-bs-html="true"
 
                             {% if user.is_authenticated %}
-                            data-bs-title="Thank you for visiting"
+                            data-bs-title="Thank you for visiting {{ user.first_name }} "
                             data-bs-content="<div>
                                         <a href='{% url 'logout' %}' class='btn btn-dark'>Logout</a>
-                                        <a href='{% url 'password_change' %}' class='btn btn-outline-dark'>Change pasword</a>
+                                        <a href='{% url 'password_change' %}' class='btn btn-outline-dark'>Change password</a>
                                     </div>"
                             {% else %}
                             data-bs-title="Login an enjoy!"
@@ -126,8 +113,7 @@
 
                             data-bs-trigger="hover focus">
                         <span
-                                class="material-symbols-outlined">account_circle</span>My
-                        account
+                                class="material-symbols-outlined">account_circle</span>My account
                     </button>
                     <button type="button" class="btn btn-danger vcenter"
                             data-bs-toggle="popover"
@@ -137,7 +123,7 @@
                         <span class="material-symbols-outlined">favorite</span>
                         Favorites
                     </button>
-                    <button type="button" class="btn btn-secondary vcenter"
+                    <a href="{% url 'cart-list' %}" class="btn btn-secondary vcenter"
                             data-bs-container="body" data-bs-toggle="popover"
                             data-bs-placement="bottom"
                             data-bs-delay='{"show": 0, "hide": 1000}'
@@ -148,7 +134,7 @@
                             </div>"
                             data-bs-trigger="hover focus">
                         <span class="material-symbols-outlined">shopping_cart</span>Cart
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

@@ -21,10 +21,66 @@
                                 {{ product.model_name }}</strong></p>
                             <p class="card-text">Description:
                                 {{ product.description }}</p>
-                            <p class="card-text"><strong>Image:
-                                {{ product.image }}</strong></p>
+
+                            <div class="carousel-indicators">
+                                <button type="button"
+                                        data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="0" class="active"
+                                        aria-current="true"
+                                        aria-label="Slide 1"></button>
+                                <button type="button"
+                                        data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                <button type="button"
+                                        data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                <button type="button"
+                                        data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="3"
+                                        aria-label="Slide 4"></button>
+                            </div>
+
+                            <div id="carouselExample" class="carousel slide">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="{{ product.image.url }}" class="d-block w-100"
+                                         alt="image" height="600px" width="auto">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ product.image_1.url }}" class="d-block w-100"
+                                         alt="image 1" height="600px" width="auto">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ product.image_2.url }}" class="d-block w-100"
+                                         alt="image 2" height="600px" width="auto">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ product.image_3.url }}" class="d-block w-100"
+                                         alt="image 3" height="600px" width="auto">
+                                </div>
+                            </div>
+
+                            <button class="carousel-control-prev"
+                                    type="button"
+                                    data-bs-target="#carouselExample"
+                                    data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"
+                                      aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next"
+                                    type="button"
+                                    data-bs-target="#carouselExample"
+                                    data-bs-slide="next">
+                                <span class="carousel-control-next-icon"
+                                      aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                             <p class="card-text">Price:
-                                {{ product.price }}</p>
+                                {{ product.price }} Euro</p>
                             <a href="{% url 'list-of-products' %}" class="btn
                             btn-secondary">Back</a>
                         </div>

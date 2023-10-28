@@ -1,0 +1,54 @@
+{#<h1>Coșul de Cumpărături</h1>#}
+{#<ul>#}
+{#{% for cart in cart_products %}#}
+{#    <li>{{ cart.product.title }} - {{ cart.product.price }} - {{ cart.quantity }}</li>#}
+{#{% empty %}#}
+{#    <li>Coșul este gol.</li>#}
+{#{% endfor %}#}
+{#</ul>#}
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Cart Items {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {{ current_datetime|date:"d-m-Y H:i:s" }}
+                {% if cart_products %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product name</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cart_product in cart_products %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ cart_product.product.title }}</td>
+                                    <td>{{ cart_product.product.price }}</td>
+                                    <td>{{ cart_product.quantity }}</td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

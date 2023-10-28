@@ -33,7 +33,7 @@ a {
     width: 600px;
     border-style: none;
     border-radius: 10px;
-    background-color: #d3d3d3;
+    background-color: #ffffff;
     opacity: 90%;
     display: flex;
     justify-content: center;
@@ -78,3 +78,4 @@ a {
     border-color: #8c8989;
     border-width: thin;
 }
+

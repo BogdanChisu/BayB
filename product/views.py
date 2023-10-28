@@ -8,6 +8,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
+from category.models import Category
+from product.filters import ProductFilter
 from product.forms import ProductForm, ProductUpdateForm
 from product.models import Product, HistoryProduct
 
@@ -50,7 +52,21 @@ class ProductListView(ListView):
     context_object_name = 'all_products'
 
     def get_queryset(self):
-        return Product.objects.filter(is_active=True)
+        return Product.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        now = datetime.now()
+        context['current_datetime'] = now
+        products = Product.objects.filter(in_stock=True)
+        myFilter = ProductFilter(self.request.GET, queryset=products)
+        products = myFilter.qs
+
+        context['all_products'] = products
+
+        context['form_filters'] = myFilter.form
+        return context
+
 
 
 class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin,
@@ -75,3 +91,7 @@ def delete_product_modal(request, pk):
     Product.objects.filter(id=pk).delete()
     return redirect('list-of-products')
 
+
+def products_by_category(request, pk):
+    products = Product.objects.filter(category_id=pk)
+    return render(request, 'product/products_by_category.html', {'products': products})

@@ -16,91 +16,111 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-                <div class="row">
-                    {% if all_products %}
-                        {% for product in all_products %}
-                            <br>
-                            <div class="col-md-2">
-                                <br>
-                                <div class="card">
-                                    {% if product.image %}
-                                        <img src="{{ product.image.url }}" height="150px" width="auto" alt="product image">
-                                    {% else %}
-                                        <div class="text-center">
-                                            <img src="{% static 'images/01default_product.jpg' %} height='150px' width='auto' alt='default image'">px
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="card">
+                                 <div class="card-header">
+                                     <h3 class="text-center">Filters</h3>
+                                 </div>
+                                 <form method="get">
+                                     <div class="card-body">
+                                         {{ form_filters.as_p }}
+                                     </div>
+                                     <div class="card-footer text-center">
+                                         <button type="submit" class="btn btn-outline-success">Filters</button>
+                                         <a href="{% url 'list-of-products' %}" class="btn btn-outline-secondary">Reset</a>
+                                     </div>
+                                 </form>
+                             </div>
+                        </div>
+                        <div class="row card-deck col-md-10">
+                            {% if all_products %}
+                                {% for product in all_products %}
+                                    <br>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <div class="card">
+                                            {% if product.image %}
+                                                <img src="{{ product.image.url }}" height="150px" width="auto" alt="product image">
+                                            {% else %}
+                                                <div class="text-center">
+                                                    <img src="{% static 'images/01default_product.jpg' %} height='140px' width='auto' alt='default image'">px
+                                                </div>
+                                            {% endif %}
+                                                <h5 class="card-title text-center">{{ product.manufacturer }} {{ product.model_name }}</h5>
+                                            <div class="card-body">
+                                                <p>{{ product.description }}</p>
+                                                <p>Rating: to implement, maybe</p>
+                                                <br>
+                                                <p><b>Price: {{ product.price }}</b></p>
+                                                <div class="btn-group">
+                                                    <button type="submit"
+                                                            class="btn btn-outline-secondary">
+                                                        Add to basket
+                                                    </button>
+                                                    <a class="btn btn-secondary dropdown-toggle btn-sm vcenter" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span class="material-symbols-outlined">settings</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item vcenter" href="{% url 'update-product' product.id %}">
+                                                            <span class="material-symbols-outlined">update</span>
+                                                            &nbsp;Update</a></li>
+                                                        <li><a class="dropdown-item vcenter" href="{% url 'product-details' product.id %}">
+                                                            <span class="material-symbols-outlined">page_info</span>
+                                                            &nbsp;Details</a></li>
+                                                        <li><a class="dropdown-item vcenter" data-bs-toggle="modal" data-bs-target="#product_{{ product.id }}" href="{% url 'product-delete-modal' product.id %}">
+                                                            <span class="material-symbols-outlined">delete</span>
+                                                            &nbsp;Delete
+                                                        </a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if perms.product.delete_product %}
+                                        <div class="modal fade"
+                                             id="product_{{ product.id }}"
+                                             tabindex="-1"
+                                             aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5"
+                                                            id="exampleModalLabel">
+                                                            Modal
+                                                            delete - {{ product }}</h1>
+                                                        <button type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete
+                                                        {{ product }}?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            No
+                                                        </button>
+                                                        <a href="{% url 'product-delete-modal' product.id %}"
+                                                           class="btn btn-danger">
+                                                            Yes
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     {% endif %}
-                                        <h5 class="card-title text-center">{{ product.manufacturer }} {{ product.model_name }}</h5>
-                                    <div class="card-body">
-                                        <p>{{ product.description }}</p>
-                                        <p>Rating: to implement, maybe</p>
-                                        <br>
-                                        <p><b>Price: {{ product.price }}</b></p>
-                                        <div class="btn-group">
-                                            <button type="submit"
-                                                    class="btn btn-outline-secondary">
-                                                Add to basket
-                                            </button>
-                                            <a class="btn btn-secondary dropdown-toggle btn-sm vcenter" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span class="material-symbols-outlined">settings</span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item vcenter" href="{% url 'update-product' product.id %}">
-                                                    <span class="material-symbols-outlined">update</span>
-                                                    &nbsp;Update</a></li>
-                                                <li><a class="dropdown-item vcenter" href="{% url 'product-details' product.id %}">
-                                                    <span class="material-symbols-outlined">page_info</span>
-                                                    &nbsp;Details</a></li>
-                                                <li><a class="dropdown-item vcenter" data-bs-toggle="modal" data-bs-target="#product_{{ product.id }}" href="{% url 'product-delete-modal' product.id %}">
-                                                    <span class="material-symbols-outlined">delete</span>
-                                                    &nbsp;Delete
-                                                </a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% if perms.product.delete_product %}
-                                <div class="modal fade"
-                                     id="product_{{ product.id }}"
-                                     tabindex="-1"
-                                     aria-labelledby="exampleModalLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5"
-                                                    id="exampleModalLabel">
-                                                    Modal
-                                                    delete - {{ product }}</h1>
-                                                <button type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure you want to delete
-                                                {{ product }}?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button"
-                                                        class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                    No
-                                                </button>
-                                                <a href="{% url 'product-delete-modal' product.id %}"
-                                                   class="btn btn-danger">
-                                                    Yes
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <h1 class="text-center">No data available</h1>
                             {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        <h1 class="text-center">No data available</h1>
-                    {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

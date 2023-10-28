@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}List of laptops{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="col-md-10 offset-md-1">
+            {% if products %}
+                <div class="row">
+                {% for product in products %}
+                    <br>
+                    <div class="col-md-3">
+                        <br>
+                        <div class="card">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" height="220px" width="auto" alt="product image">
+                            {% else %}
+                                <div class="text-center">
+                                    <img src="{% static 'images/01default_product.jpg' %} height='140px' width='auto' alt='default image'">px
+                                </div>
+                            {% endif %}
+                                <h5 class="card-title text-center">{{ product.manufacturer }} {{ product.model_name }}</h5>
+                            <div class="card-body" >
+                                <div style="overflow-y: auto; height: 200px;">
+                                    <p>{{ product.description }}</p>
+                                    <p>Rating: to implement, maybe</p>
+                                    <br>
+                                </div>
+                                <p><b>Price: {{ product.price }}</b></p>
+                                <div class="btn-group">
+                                    <a href="{% url 'add-to-cart' product.id %}"
+                                            class="btn btn-outline-secondary">
+                                        Add to basket
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{%  endblock %}
