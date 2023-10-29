@@ -1,5 +1,9 @@
 {% extends 'marketplace/market_base.html' %}
 
+{% block hide_content %}
+    <link rel="stylesheet" href="{% static 'css/hide_stuff.css' %}">
+{% endblock %}
+
 {% block title %} Create Business User {% endblock %}
 
 {% block content %}

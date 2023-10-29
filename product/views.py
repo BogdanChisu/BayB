@@ -78,11 +78,9 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin,
     permission_required = 'product.change_product'
 
 
-class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin,
-                        DetailView):
+class ProductDetailView(DetailView):
     template_name = 'product/product_detail.html'
     model = Product
-    permission_required = 'product.view_product'
 
 
 @login_required
