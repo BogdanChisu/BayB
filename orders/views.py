@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 
@@ -14,7 +15,16 @@ class OrderCartListView(ListView):
     context_object_name = 'cart_products'
 
     def get_queryset(self):
-        return OrderCart.objects.filter(cart_item=1, user_id=self.request.user.id)
+        result = (OrderCart.objects.filter(cart_item=1,
+                                        user_id=self.request.user.id))
+        return result
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart_products = context['cart_products']
+        grand_total = sum(item.amount() for item in cart_products)
+        context['grand_total'] = grand_total
+        return context
 
 
 @login_required()

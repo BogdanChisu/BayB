@@ -20,12 +20,12 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 {{ current_datetime|date:"d-m-Y H:i:s" }}
-                {% if cart_products %}
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Product name</th>
+                                <th>Image</th>
                                 <th>Unit Price</th>
                                 <th>Quantity</th>
                                 <th>Amount</th>
@@ -36,17 +36,21 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ cart_product.product.title }}</td>
+                                    <td><img src="{{ cart_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
                                     <td>{{ cart_product.product.price }}</td>
                                     <td>{{ cart_product.quantity }}</td>
-                                    <td>
-
-                                    </td>
-                                </tr>
+                                    <td>{{ cart_product.amount}}</td>
                             {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><b>Grand Total: </b></td>
+                                <td><b>{{ grand_total }}</b></td>
+                            </tr>
                         </tbody>
                     </table>
-                {% else %}
-                {% endif %}
             </div>
         </div>
     </div>

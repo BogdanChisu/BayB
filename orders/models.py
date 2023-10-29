@@ -12,5 +12,8 @@ class OrderCart(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def amount(self):
+        return self.product.price * self.quantity
+
     def __str__(self):
         return self.product
