@@ -115,23 +115,21 @@
                         <span
                                 class="material-symbols-outlined">account_circle</span>My account
                     </button>
-                    <button type="button" class="btn btn-danger vcenter"
+                    <a href="{% url 'wish-list' %}" type="button" class="btn btn-danger vcenter"
                             data-bs-toggle="popover"
                             data-bs-trigger="hover focus"
                             data-bs-title="Add to favorites"
                             data-bs-content="All your favorite items, one click away!">
                         <span class="material-symbols-outlined">favorite</span>
                         Favorites
-                    </button>
+                    </a>
                     <a href="{% url 'cart-list' %}" class="btn btn-secondary vcenter"
                             data-bs-container="body" data-bs-toggle="popover"
                             data-bs-placement="bottom"
                             data-bs-delay='{"show": 0, "hide": 1000}'
                             data-bs-html="true"
                             data-bs-title="Cart details"
-                            data-bs-content="<div>
-                                <a class='btn btn-outline-dark'>View cart</a>
-                            </div>"
+                            data-bs-content="All your chosen items"
                             data-bs-trigger="hover focus">
                         <span class="material-symbols-outlined">shopping_cart</span>Cart
                     </a>

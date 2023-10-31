@@ -28,6 +28,7 @@
                                 <th>Image</th>
                                 <th>Unit Price</th>
                                 <th>Quantity</th>
+                                <th>Actions</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
@@ -38,10 +39,21 @@
                                     <td>{{ cart_product.product.title }}</td>
                                     <td><img src="{{ cart_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
                                     <td>{{ cart_product.product.price }}</td>
-                                    <td>{{ cart_product.quantity }}</td>
+                                    <td><a href="{% url 'decrease-cart-quantity' cart_product.id %}" class="btn btn-outline-secondary">-</a>
+                                        {{ cart_product.quantity }}<a class="btn btn-outline-secondary" href="{% url 'increase-cart-quantity' cart_product.id %}">+</a></td>
+                                    <td>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <a class="btn btn-outline-danger btn-sm"
+                                                href="{% url 'delete-from-cart' cart_product.id %}">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </a>
+                                        </form>
+                                    </td>
                                     <td>{{ cart_product.amount}}</td>
                             {% endfor %}
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

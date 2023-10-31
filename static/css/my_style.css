@@ -86,4 +86,17 @@ a {
 
 .carousel-item {
     background-color: #d3d3d3;
+    transform: scale(1);
+}
+
+.slider-div {
+    height: 500px;
+}
+
+.slider-cat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 490px;
 }

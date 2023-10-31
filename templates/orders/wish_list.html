@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Wish List {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {{ current_datetime|date:"d-m-Y H:i:s" }}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product name</th>
+                                <th>Image</th>
+                                <th>Unit Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for wish_product in wish_products %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ wish_product.product.title }}</td>
+                                    <td><img src="{{ wish_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
+                                    <td>{{ wish_product.product.price }}</td>
+                                    <td>
+                                        <a class="btn btn-outline-danger btn-sm">
+                                            <span>
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </span>
+                                        </a>
+                                    </td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

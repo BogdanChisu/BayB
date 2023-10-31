@@ -10,26 +10,6 @@
                 <div class="row">
                     <div class="col-md-6 details-back">
 
-                        <div class="carousel-indicators">
-                            <button type="button"
-                                    data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide-to="0" class="active"
-                                    aria-current="true"
-                                    aria-label="Slide 1"></button>
-                            <button type="button"
-                                    data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                            <button type="button"
-                                    data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                            <button type="button"
-                                    data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide-to="3"
-                                    aria-label="Slide 4"></button>
-                        </div>
-
                         <div id="carouselExample" class="carousel slide">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
@@ -94,7 +74,7 @@
                         </table>
                         <div class="btn-group" role="group"
                              aria-label="Basic mixed styles example">
-                            <button type="button" class="btn btn-secondary"
+                            <a type="button" href="{% url 'add-to-cart' product.id %}" class="btn btn-secondary"
                                     data-bs-container="body"
                                     data-bs-toggle="popover"
                                     data-bs-placement="bottom"
@@ -105,8 +85,8 @@
                                         <a class='btn btn-outline-dark'>View cart</a>
                                     </div>">
                                 <span class="material-symbols-outlined vcenter">shopping_cart</span>
-                            </button>
-                            <button type="button" class="btn btn-danger"
+                            </a>
+                            <a type="button" href="{% url 'add-to-wishlist' product.id %}" class="btn btn-danger"
                                     data-bs-container="body"
                                     data-bs-toggle="popover"
                                     data-bs-placement="bottom"
@@ -117,7 +97,7 @@
                                         <a class='btn btn-outline-dark'>View favorites</a>
                                     </div>">
                                 <span class="material-symbols-outlined vcenter">favorite</span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
