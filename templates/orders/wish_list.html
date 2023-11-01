@@ -28,11 +28,15 @@
                                     <td><img src="{{ wish_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
                                     <td>{{ wish_product.product.price }}</td>
                                     <td>
-                                        <a class="btn btn-outline-danger btn-sm">
-                                            <span>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'delete-from-wishlist' wish_product.id %}" class="btn btn-outline-danger btn-sm">
                                                 <span class="material-symbols-outlined">delete</span>
-                                            </span>
-                                        </a>
+                                            </a>
+                                            <a href="{% url 'move-favorites-to-cart' wish_product.id %}" class="btn btn-outline-secondary btn-sm">
+                                                <span class="material-symbols-outlined">shopping_cart</span>
+                                            </a>
+                                        </div>
+
                                     </td>
                             {% endfor %}
                         </tbody>

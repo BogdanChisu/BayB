@@ -31,7 +31,7 @@ class UserBusinessForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
         self.fields['first_name'].widget.attrs.update({'class': 'form-control',
-                                                       'placeholder': 'Please enter your first name1'})
+                                                       'placeholder': 'Please enter your company name'})
         self.fields['last_name'].widget.attrs.update({'class': 'form-control',
                                                       'placeholder': 'Please enter your last name'})
         self.fields['email'].widget.attrs.update({'class': 'form-control',

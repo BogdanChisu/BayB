@@ -41,7 +41,7 @@ class WishListView(ListView):
 @login_required()
 def add_to_cart(request, pk):
     if OrderCart.objects.filter(user_id=request.user.id,
-                                product_id=pk).exists():
+                                product_id=pk, cart_item=1).exists():
         quantity = OrderCart.objects.get(user_id=request.user.id,
                                 product_id=pk).quantity
     else:
@@ -49,7 +49,7 @@ def add_to_cart(request, pk):
 
     # verificam daca produsul este in cosul de cumparaturi
     if OrderCart.objects.filter(user_id=request.user.id,
-                                product_id=pk).exists():
+                                product_id=pk, cart_item=1).exists():
         quantity += 1
         OrderCart.objects.filter(user_id=request.user.id,
                                  product_id=pk).update(quantity=quantity)
@@ -85,9 +85,23 @@ def add_to_wishlist(request, pk):
 
 @login_required()
 def delete_from_cart(request, pk):
-    OrderCart.objects.filter(user_id=request.user.id, id=pk).delete()
+    if OrderCart.objects.filter(user_id=request.user.id, id=pk, wishlist_item=1).exists():
+        OrderCart.objects.filter(user_id=request.user.id, id=pk).update(cart_item=0)
+        return redirect('cart-list')
+    else:
+        OrderCart.objects.filter(user_id=request.user.id, id=pk).delete()
+        return redirect('cart-list')
 
-    return redirect('cart-list')
+@login_required()
+def delete_from_wishlist(request, pk):
+    if OrderCart.objects.filter(user_id=request.user.id, id=pk,
+                                cart_item=1).exists():
+        OrderCart.objects.filter(user_id=request.user.id, id=pk).update(
+            wishlist_item=0)
+        return redirect('wish-list')
+    else:
+        OrderCart.objects.filter(user_id=request.user.id, id=pk).delete()
+        return redirect('wish-list')
 
 def increase_cart_quantity(request, pk):
     result = OrderCart.objects.get(id=pk)
@@ -105,3 +119,8 @@ def decrease_cart_quantity(request, pk):
         quantity -= 1
     OrderCart.objects.filter(id=pk).update(quantity=quantity)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required()
+def move_favorites_to_cart(request, pk):
+    OrderCart.objects.filter(user_id=request.user.id, id=pk).update(cart_item=1)
+    return redirect('cart-list')

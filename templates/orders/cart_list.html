@@ -39,8 +39,15 @@
                                     <td>{{ cart_product.product.title }}</td>
                                     <td><img src="{{ cart_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
                                     <td>{{ cart_product.product.price }}</td>
-                                    <td><a href="{% url 'decrease-cart-quantity' cart_product.id %}" class="btn btn-outline-secondary">-</a>
-                                        {{ cart_product.quantity }}<a class="btn btn-outline-secondary" href="{% url 'increase-cart-quantity' cart_product.id %}">+</a></td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'decrease-cart-quantity' cart_product.id %}" class="btn btn-outline-secondary btn-sm">-</a>
+                                            <button type="button" class="btn btn-secondary btn-sm" disabled>
+                                                {{ cart_product.quantity }}
+                                            </button>
+                                            <a class="btn btn-outline-secondary btn-sm" href="{% url 'increase-cart-quantity' cart_product.id %}">+</a>
+                                        </div>
+                                    </td>
                                     <td>
                                         <form method="post">
                                             {% csrf_token %}
@@ -57,7 +64,16 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <a class="btn btn-secondary btn-sm vcenter"
+                                            href="#">
+                                            <span class="material-symbols-outlined">send</span>&nbsp;
+                                            <b>Place order</b>
+                                        </a>
+                                    </form>
+                                </td>
                                 <td><b>Grand Total: </b></td>
                                 <td><b>{{ grand_total }}</b></td>
                             </tr>

@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}List of laptops{% endblock %}
+{% block title %} Category listing {% endblock %}
 
 {% block content %}
 
@@ -26,17 +26,15 @@
                                 <h5 class="card-title text-center">{{ product.manufacturer }} {{ product.model_name }}</h5>
                                 <div class="card-body">
                                     <p><b>Price: {{ product.price }}</b></p>
-                                    <div class="btn-group">
+                                    <div class="btn-group" role="group">
                                         <a href="{% url 'add-to-cart' product.id %}"
-                                           class="btn btn-outline-secondary">
-                                            Add to basket
-                                        </a>
-                                        <a href="{% url 'product-details' product.id %}"
-                                           class="btn btn-outline-danger">
-                                            <span class="material-symbols-outlined">preview</span>
+                                           class="btn btn-outline-secondary btn-sm vcenter">
+                                            <span class="material-symbols-outlined">
+                                                shopping_cart
+                                            </span>
                                         </a>
                                         <button type="button"
-                                                class="btn btn-primary"
+                                                class="btn btn-secondary btn-sm vcenter"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#product_details_{{ product.id }}">
                                             <span class="material-symbols-outlined">preview</span>
@@ -65,22 +63,22 @@
                                                                     <div class="carousel-inner">
                                                                         <div class="carousel-item active slider-div">
                                                                             <img src="{{ product.image.url }}"
-                                                                                 class="d-block w-100 slider-cat"
+                                                                                 class="d-block slider-img"
                                                                                  alt="product image">
                                                                         </div>
                                                                         <div class="carousel-item slider-div">
                                                                             <img src="{{ product.image_1.url }}"
-                                                                                 class="d-block w-100"
-                                                                                 alt="product image slider-cat">
+                                                                                 class="d-block slider-img"
+                                                                                 alt="product image">
                                                                         </div>
                                                                         <div class="carousel-item slider-div">
                                                                             <img src="{{ product.image_2.url }}"
-                                                                                 class="d-block w-100 slider-cat"
+                                                                                 class="d-block slider-img"
                                                                                  alt="product image">
                                                                         </div>
                                                                         <div class="carousel-item slider-div">
                                                                             <img src="{{ product.image_3.url }}"
-                                                                                 class="d-block w-100 slider-cat"
+                                                                                 class="d-block slider-img"
                                                                                  alt="product image">
                                                                         </div>
                                                                     </div>
@@ -131,7 +129,7 @@
                                                                 <div class="btn-group"
                                                                      role="group"
                                                                      aria-label="Basic mixed styles example">
-                                                                    <button type="button"
+                                                                    <a type="button" href="{% url 'add-to-cart' product.id %}"
                                                                             class="btn btn-secondary"
                                                                             data-bs-container="body"
                                                                             data-bs-toggle="popover"
@@ -140,11 +138,13 @@
                                                                             data-bs-delay='{"show": 0, "hide": 1000}'
                                                                             data-bs-html="true"
                                                                             data-bs-content="<div>
-                                                                <a class='btn btn-outline-dark'>View cart</a>
-                                                            </div>">
+                                                                                <a href='{% url 'cart-list' %}' class='btn btn-outline-secondary'>
+                                                                                    View cart
+                                                                                </a>
+                                                                            </div>">
                                                                         <span class="material-symbols-outlined vcenter">shopping_cart</span>
-                                                                    </button>
-                                                                    <button type="button"
+                                                                    </a>
+                                                                    <a type="button" href="{% url 'add-to-wishlist' product.id %}"
                                                                             class="btn btn-danger"
                                                                             data-bs-container="body"
                                                                             data-bs-toggle="popover"
@@ -153,10 +153,12 @@
                                                                             data-bs-html="true"
                                                                             data-bs-delay='{"show": 0, "hide": 1000}'
                                                                             data-bs-content="<div>
-                                                                <a class='btn btn-outline-dark'>View favorites</a>
-                                                            </div>">
+                                                                                <a href='{% url 'wish-list' %}' class='btn btn-outline-danger'>
+                                                                                    View favorites
+                                                                                </a>
+                                                                            </div>">
                                                                         <span class="material-symbols-outlined vcenter">favorite</span>
-                                                                    </button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -172,7 +174,18 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <a href="{% url 'add-to-wishlist' product.id %}"
+                                           class="btn btn-outline-danger btn-sm vcenter">
+                                            <span class="material-symbols-outlined">
+                                                favorite
+                                            </span>
+                                        </a>
+                                        <a href="{% url 'create-rating' %}"
+                                           class="btn btn-outline-danger btn-sm vcenter">
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
