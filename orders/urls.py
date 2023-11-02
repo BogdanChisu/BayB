@@ -18,4 +18,5 @@ urlpatterns = [
              name='move-favorites-to-cart'),
     path('cart_list/', views.OrderCartListView.as_view(), name='cart-list'),
     path('wish_list/', views.WishListView.as_view(), name='wish-list'),
+    path('place_order/', views.PlaceOrderCreateView.as_view(), name='place-order'),
 ]

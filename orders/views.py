@@ -1,13 +1,17 @@
-
 from datetime import datetime
+from pprint import pprint
+from random import randint
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView
 
-from orders.models import OrderCart
+from orders.forms import PlaceOrderForm
+from orders.models import OrderCart, PlaceOrder
 
 
 class OrderCartListView(ListView):
@@ -124,3 +128,57 @@ def decrease_cart_quantity(request, pk):
 def move_favorites_to_cart(request, pk):
     OrderCart.objects.filter(user_id=request.user.id, id=pk).update(cart_item=1)
     return redirect('cart-list')
+
+
+class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'orders/place_order.html'
+    model = PlaceOrder
+    form_class = PlaceOrderForm
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_order = form.save(commit=False)
+
+            #user_id
+            new_order.user_id = self.request.user.id
+
+            # order number
+            generic_order = randint(1, 100)
+            new_order.order_number = f'ESHOP_{generic_order}'
+
+
+            # product list
+            products = {'data': []}
+            final_price = 0
+            products_per_user = OrderCart.objects.filter(user_id=self.request.user.id, cart_item=1)
+
+            for item in products_per_user:
+                products['data'].append({'title': item.product.title,
+                                         'quantity': item.quantity,
+                                         'price': f'{item.product.price * item.quantity}'
+                                         })
+
+
+                final_price += item.product.price * item.quantity
+            new_order.product_list = products
+            pprint(products)
+
+            # price
+            new_order.price = final_price
+
+            # invoice_address
+
+            new_order.invoice_address = new_order.delivery_address
+
+            # created_at
+
+            new_order.created_at = datetime.now()
+
+            new_order.save()
+
+            return redirect('home')
+
+
+
+

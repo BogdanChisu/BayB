@@ -68,7 +68,7 @@
                                     <form method="post">
                                         {% csrf_token %}
                                         <a class="btn btn-secondary btn-sm vcenter"
-                                            href="#">
+                                            href="{% url 'place-order' %}">
                                             <span class="material-symbols-outlined">send</span>&nbsp;
                                             <b>Place order</b>
                                         </a>

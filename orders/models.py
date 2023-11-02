@@ -17,3 +17,17 @@ class OrderCart(models.Model):
 
     def __str__(self):
         return self.product
+
+
+class PlaceOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    product_list = models.JSONField(null=True)
+    order_number = models.CharField(max_length=50)
+    delivery_address = models.TextField(max_length=100)
+    invoice_address = models.TextField(max_length=100)
+    price = models.CharField(max_length=100)
+    created_at = models.DateTimeField()
+
+    def __str__(self):
+        return self.product_list
+
