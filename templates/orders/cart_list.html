@@ -20,65 +20,97 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 {{ current_datetime|date:"d-m-Y H:i:s" }}
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Product name</th>
-                                <th>Image</th>
-                                <th>Unit Price</th>
-                                <th>Quantity</th>
-                                <th>Actions</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for cart_product in cart_products %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ cart_product.product.title }}</td>
-                                    <td><img src="{{ cart_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
-                                    <td>{{ cart_product.product.price }}</td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{% url 'decrease-cart-quantity' cart_product.id %}" class="btn btn-outline-secondary btn-sm">-</a>
-                                            <button type="button" class="btn btn-secondary btn-sm" disabled>
-                                                {{ cart_product.quantity }}
-                                            </button>
-                                            <a class="btn btn-outline-secondary btn-sm" href="{% url 'increase-cart-quantity' cart_product.id %}">+</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <form method="post">
-                                            {% csrf_token %}
-                                            <a class="btn btn-outline-danger btn-sm"
-                                                href="{% url 'delete-from-cart' cart_product.id %}">
-                                                <span class="material-symbols-outlined">delete</span>
-                                            </a>
-                                        </form>
-                                    </td>
-                                    <td>{{ cart_product.amount}}</td>
-                            {% endfor %}
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        <a class="btn btn-secondary btn-sm vcenter"
-                                            href="{% url 'place-order' %}">
-                                            <span class="material-symbols-outlined">send</span>&nbsp;
-                                            <b>Place order</b>
-                                        </a>
-                                    </form>
-                                </td>
-                                <td><b>Grand Total: </b></td>
-                                <td><b>{{ grand_total }}</b></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                {% if user.is_authenticated %}
+                    {% if cart_products %}
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Product name</th>
+                                        <th>Image</th>
+                                        <th>Unit Price</th>
+                                        <th>Quantity</th>
+                                        <th>Actions</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for cart_product in cart_products %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ cart_product.product.title }}</td>
+                                            <td><img src="{{ cart_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
+                                            <td>{{ cart_product.product.price }}</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{% url 'decrease-cart-quantity' cart_product.id %}" class="btn btn-outline-secondary btn-sm">-</a>
+                                                    <button type="button" class="btn btn-secondary btn-sm" disabled>
+                                                        {{ cart_product.quantity }}
+                                                    </button>
+                                                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'increase-cart-quantity' cart_product.id %}">+</a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    <a class="btn btn-outline-danger btn-sm"
+                                                        href="{% url 'delete-from-cart' cart_product.id %}">
+                                                        <span class="material-symbols-outlined">delete</span>
+                                                    </a>
+                                                </form>
+                                            </td>
+                                            <td>{{ cart_product.amount}}</td>
+                                    {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <a class="btn btn-secondary btn-sm vcenter"
+                                                    href="{% url 'place-order' %}">
+                                                    <span class="material-symbols-outlined">send</span>&nbsp;
+                                                    <b>Place order</b>
+                                                </a>
+                                            </form>
+                                        </td>
+                                        <td><b>Grand Total: </b></td>
+                                        <td><b>{{ grand_total }}</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <br>
+                            <div class="alert alert-dark" role="alert">
+                                <h3>The cart awaits for your selected items!</h3>
+                                <hr>
+                                <p>This link will redirect you to our
+                                    <a class="btn btn-outline-danger btn-sm"
+                                       href="{% url 'home' %}">
+                                        <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                            home
+                                        </span>home
+                                    </a> page.
+                                </p>
+                            </div>
+                        {% endif %}
+                {% else %}
+                    <br>
+                    <div class="alert alert-dark" role="alert">
+                        <h3>Please login to use the cart!</h3>
+                        <hr>
+                        <p>This link will redirect you to the
+                            <a class="btn btn-outline-danger btn-sm"
+                               href="{% url 'login' %}">
+                                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                    login
+                                </span>&nbsp;login
+                            </a> page.
+                        </p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

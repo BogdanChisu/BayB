@@ -1,6 +1,7 @@
 from datetime import datetime
 from pprint import pprint
 from random import randint
+from urllib import request
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -158,9 +159,11 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
                                          'quantity': item.quantity,
                                          'price': f'{item.product.price * item.quantity}'
                                          })
-
-
                 final_price += item.product.price * item.quantity
+                if item.wishlist_item == 1:
+                    item.cart_item = 0
+                else:
+                    OrderCart.objects.filter(id=item.id).delete()
             new_order.product_list = products
             pprint(products)
 
@@ -168,15 +171,12 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
             new_order.price = final_price
 
             # invoice_address
-
             new_order.invoice_address = new_order.delivery_address
 
             # created_at
-
             new_order.created_at = datetime.now()
 
             new_order.save()
-
             return redirect('home')
 
 

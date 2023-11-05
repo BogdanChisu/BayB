@@ -10,7 +10,9 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 {{ current_datetime|date:"d-m-Y H:i:s" }}
-                    <table class="table">
+                {% if user.is_authenticated %}
+                    {% if wish_products %}
+                        <table class="table">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -41,6 +43,36 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% else %}
+                        <br>
+                        <div class="alert alert-dark" role="alert">
+                            <h3>The favorites list waits for your choices!</h3>
+                            <hr>
+                            <p>This link will redirect you to our
+                                <a class="btn btn-outline-danger btn-sm"
+                                   href="{% url 'home' %}">
+                                    <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                        home
+                                    </span>home
+                                </a> page.
+                            </p>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <br>
+                    <div class="alert alert-dark" role="alert">
+                        <h3>Please login to use the favorites!</h3>
+                        <hr>
+                        <p>This link will redirect you to the
+                            <a class="btn btn-outline-danger btn-sm"
+                               href="{% url 'login' %}">
+                                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                    login
+                                </span>&nbsp;login
+                            </a> page.
+                        </p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
