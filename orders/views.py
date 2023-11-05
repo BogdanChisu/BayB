@@ -5,6 +5,7 @@ from urllib import request
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import EmailMultiAlternatives
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -175,8 +176,42 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
 
             # created_at
             new_order.created_at = datetime.now()
-
             new_order.save()
+
+            # send order details by email
+            subject = f"Thank you {self.request.user} for your order!"
+            from_email = "office@bogdan-chisu.ro"
+            to = f"{self.request.user.email}"
+            text_content = "The following content describes the details of your order"
+            html_content = (f"<h3>Order number {new_order.order_number}</h3>"
+                            f"<h4>Placed by: <b>{self.request.user}</b></h4>"
+                            f"<h4>Order time: {new_order.created_at}</h4>"
+                            f"<table>"
+                                f"<thead>"
+                                    f"<th>#</th>"
+                                    f"<th>Product title</th>"
+                                    f"<th>Quantity</th>"
+                                    f"<th>Price</th>"
+                                f"</thead>"
+                                f"<tbody>")
+            for item in new_order.product_list['data']:
+                html_content += (f"<tr>"
+                                    f"<td>{item['title']}</td>"
+                                    f"<td>{item['quantity']}</td>"
+                                    f"<td>{item['price']}</td>"
+                                 f"</tr>")
+            html_content += (f"<tr>"
+                                f"<td></td"
+                                f"<td>Grand Total</td>"
+                                f"<td>{new_order.price}</td>"
+                             f"</tr>"
+                            f"</tbody>"
+                        f"</table>")
+
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+
             return redirect('home')
 
 
