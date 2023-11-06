@@ -9,6 +9,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.template import Context
+from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
 
@@ -128,7 +130,7 @@ def decrease_cart_quantity(request, pk):
 
 @login_required()
 def move_favorites_to_cart(request, pk):
-    OrderCart.objects.filter(user_id=request.user.id, id=pk).update(cart_item=1)
+    OrderCart.objects.filter(user_id=request.user.id, id=pk).update(cart_item=1, wishlist_item=0)
     return redirect('cart-list')
 
 
@@ -161,10 +163,7 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
                                          'price': f'{item.product.price * item.quantity}'
                                          })
                 final_price += item.product.price * item.quantity
-                if item.wishlist_item == 1:
-                    item.cart_item = 0
-                else:
-                    OrderCart.objects.filter(id=item.id).delete()
+                OrderCart.objects.filter(id=item.id).delete()
             new_order.product_list = products
             pprint(products)
 
@@ -179,34 +178,55 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
             new_order.save()
 
             # send order details by email
-            subject = f"Thank you {self.request.user} for your order!"
+            subject = f"Thank you {self.request.user} for shopping at BayB!"
             from_email = "office@bogdan-chisu.ro"
             to = f"{self.request.user.email}"
             text_content = "The following content describes the details of your order"
-            html_content = (f"<h3>Order number {new_order.order_number}</h3>"
-                            f"<h4>Placed by: <b>{self.request.user}</b></h4>"
-                            f"<h4>Order time: {new_order.created_at}</h4>"
-                            f"<table>"
-                                f"<thead>"
-                                    f"<th>#</th>"
-                                    f"<th>Product title</th>"
-                                    f"<th>Quantity</th>"
-                                    f"<th>Price</th>"
-                                f"</thead>"
-                                f"<tbody>")
-            for item in new_order.product_list['data']:
-                html_content += (f"<tr>"
-                                    f"<td>{item['title']}</td>"
-                                    f"<td>{item['quantity']}</td>"
-                                    f"<td>{item['price']}</td>"
-                                 f"</tr>")
-            html_content += (f"<tr>"
-                                f"<td></td"
-                                f"<td>Grand Total</td>"
-                                f"<td>{new_order.price}</td>"
-                             f"</tr>"
-                            f"</tbody>"
-                        f"</table>")
+            i = 0
+            context = new_order.product_list
+            html_content = get_template("orders/order_details.html").render(context)
+            pprint(context)
+            # html_content = ("<!DOCTYPE html>"
+            #                 "<html lang='en'>"
+            #                 "<head>"
+            #                     "<meta name='viewport' content='width=device-width, initial-scale=1'>"
+            #                     "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'"
+            #                           "rel='stylesheet'"
+            #                           "integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN'"
+            #                           "crossorigin='anonymous'>"
+            #                     "<link rel='stylesheet'"
+            #                           "href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'/>"
+            #                 "</head>"
+            #                 "<body>"
+            #                 "<h2>Thank you for shopping at <img src='.static/images/BayB.gif'></h2>"
+            #                 f"<h3>Order number {new_order.order_number}</h3>"
+            #                 f"<h4>Placed by: <b>{self.request.user}</b></h4>"
+            #                 f"<h4>Order time: {new_order.created_at}</h4>"
+            #                 f"<table class='table'>"
+            #                     f"<thead>"
+            #                         f"<th>#</th>"
+            #                         f"<th>Product title</th>"
+            #                         f"<th>Quantity</th>"
+            #                         f"<th>Price</th>"
+            #                     f"</thead>"
+            #                     f"<tbody>")
+            # for item in new_order.product_list['data']:
+            #     i += 1
+            #     html_content += (f"<tr>"
+            #                         f"<td>{i}</td>"
+            #                         f"<td>{item['title']}</td>"
+            #                         f"<td>{item['quantity']}</td>"
+            #                         f"<td>{item['price']}</td>"
+            #                      f"</tr>")
+            # html_content += (f"<tr>"
+            #                     f"<td></td"
+            #                     f"<td>Grand Total</td>"
+            #                     f"<td>{new_order.price}</td>"
+            #                  f"</tr>"
+            #                 f"</tbody>"
+            #             f"</table>"
+            #         "</body")
+
 
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
