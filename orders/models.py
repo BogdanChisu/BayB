@@ -26,6 +26,7 @@ class PlaceOrder(models.Model):
     delivery_address = models.TextField(max_length=100)
     invoice_address = models.TextField(max_length=100)
     price = models.CharField(max_length=100)
+    pdf_file = models.FileField(upload_to='order_pdf', null=True, blank=True)
     created_at = models.DateTimeField()
 
     def __str__(self):

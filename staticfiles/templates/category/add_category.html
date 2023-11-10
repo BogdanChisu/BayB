@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Category {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Create a category</h4>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-outline-success">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

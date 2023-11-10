@@ -1,0 +1,143 @@
+{% load static %}
+<div class="nav-holder">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary on-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/BayB.gif' %}" height="60px"
+                     alt="animated logo">
+            </a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    {% if request.user.is_superuser or perms.product.add_product %}
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-danger dropdown-toggle vcenter" href="#"
+                               role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <span class="material-symbols-outlined">view_list</span>
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'list-of-categories' %}">List of
+                                    categories</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'category-create' %}">Create
+                                    Category</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-danger dropdown-toggle vcenter" href="#"
+                               role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <span class="material-symbols-outlined">category</span>
+                                Products
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'list-of-products' %}">List of
+                                    products</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'product-add' %}">Create
+                                    Product</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-danger dropdown-toggle" href="#"
+                           role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            All categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for category in all_categories %}
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="{% url 'products-by-category' category.id %}">{{ category.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" type="button" class="btn btn-danger">Daily
+                            Special Offer</a>
+                    </li>
+                    <li>
+                        <a href="#" type="button" class="btn btn-secondary">Used
+                            but useful</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search"
+                           placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">
+                        Search
+                    </button>
+                </form>
+                <div class="btn-group" role="group"
+                     aria-label="Basic outlined example">
+                    <button type="button"
+                            class="btn btn-secondary vcenter text-center"
+                            data-bs-container="body" data-bs-toggle="popover"
+                            data-bs-placement="bottom"
+                            data-bs-delay='{"show": 0, "hide": 1000}'
+                            data-bs-html="true"
+
+                            {% if user.is_authenticated %}
+                            data-bs-title="Thank you for visiting {{ user.first_name }} "
+                            data-bs-content="<div>
+                                        <a href='{% url 'logout' %}' class='btn btn-dark'>Logout</a>
+                                        <a href='{% url 'password_change' %}' class='btn btn-outline-dark'>Change password</a>
+                                    </div>"
+                            {% else %}
+                            data-bs-title="Login an enjoy!"
+                            data-bs-content="<div>
+                                    <a href='{% url 'login' %}' class='btn btn-dark'>Login</a>
+                                    <a href='{% url 'create-user' %}' class='btn btn-outline-dark'>Create account</a>
+                                </div>"
+                            {% endif %}
+
+                            data-bs-trigger="hover focus">
+                        <span
+                                class="material-symbols-outlined">account_circle</span>My account
+                    </button>
+                    <a href="{% url 'wish-list' %}" type="button" class="btn btn-danger vcenter"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="hover focus"
+                            data-bs-title="Favorites"
+                            data-bs-content="All your favorite items, one click away!">
+                        <span class="material-symbols-outlined">favorite</span>
+                        Favorites
+                    </a>
+                    <a href="{% url 'cart-list' %}" class="btn btn-secondary vcenter"
+                            data-bs-container="body" data-bs-toggle="popover"
+                            data-bs-placement="bottom"
+                            data-bs-delay='{"show": 0, "hide": 1000}'
+                            data-bs-html="true"
+                            data-bs-title="Cart details"
+                            data-bs-content="All your chosen items"
+                            data-bs-trigger="hover focus">
+                        <span class="material-symbols-outlined">shopping_cart</span>Cart
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

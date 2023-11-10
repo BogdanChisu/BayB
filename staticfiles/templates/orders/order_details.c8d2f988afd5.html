@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+</head>
+<body>
+    <h1>Thank you for shopping at</h1><img src="{% static 'images/BayB.gif' %}" alt="My image"/>
+{#    <h3>Order number {new_order.order_number}</h3>#}
+{#    <h4>Placed by: <b>{self.request.user}</b></h4>#}
+{#    <h4>Order time: {new_order.created_at}</h4>#}
+    <table class='table'>
+        <thead>
+            <th>#</th>
+            <th>Product title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                {% if item is not data|last %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price }}</td>
+                     </tr>
+                {% else %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><b>Grand Total</b></td>
+                        <td><b>{{ item.price }}</b></td>
+                     </tr>
+                {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+</body>
+</html>

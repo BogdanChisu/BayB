@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Category listing {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="col-md-10 offset-md-1">
+            {% if products %}
+                <div class="row">
+                    {% for product in products %}
+                        <br>
+                        <div class="col-md-3">
+                            <br>
+                            <div class="card">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}"
+                                         alt="product image">
+                                {% else %}
+                                    <div class="text-center">
+                                        <img src="{% static 'images/01default_product.jpg' %}" height="140px" width="auto" alt="default image">
+                                    </div>
+                                {% endif %}
+                                <h5 class="card-title text-center">{{ product.manufacturer }} {{ product.model_name }}</h5>
+                                <div class="card-body">
+                                    <p><b>Price: {{ product.price }}</b></p>
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'add-to-cart' product.id %}"
+                                           class="btn btn-outline-secondary btn-sm vcenter">
+                                            <span class="material-symbols-outlined">
+                                                shopping_cart
+                                            </span>
+                                        </a>
+                                        <button type="button"
+                                                class="btn btn-secondary btn-sm vcenter"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#product_details_{{ product.id }}">
+                                            <span class="material-symbols-outlined">preview</span>
+                                        </button>
+                                        <div class="modal fade"
+                                             id="product_details_{{ product.id }}"
+                                             tabindex="-1"
+                                             aria-labelledby="product_details"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5"
+                                                            id="exampleModalLabel">{{ product.title }}</h1>
+                                                        <button type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-md-6 details-back">
+
+                                                                <div id="carouselExample_{{ product.id }}"
+                                                                     class="carousel slide">
+                                                                    <div class="carousel-inner">
+                                                                        <div class="carousel-item active slider-div">
+                                                                            <img src="{{ product.image.url }}"
+                                                                                 class="d-block slider-img"
+                                                                                 alt="product image">
+                                                                        </div>
+                                                                        <div class="carousel-item slider-div">
+                                                                            <img src="{{ product.image_1.url }}"
+                                                                                 class="d-block slider-img"
+                                                                                 alt="product image">
+                                                                        </div>
+                                                                        <div class="carousel-item slider-div">
+                                                                            <img src="{{ product.image_2.url }}"
+                                                                                 class="d-block slider-img"
+                                                                                 alt="product image">
+                                                                        </div>
+                                                                        <div class="carousel-item slider-div">
+                                                                            <img src="{{ product.image_3.url }}"
+                                                                                 class="d-block slider-img"
+                                                                                 alt="product image">
+                                                                        </div>
+                                                                    </div>
+                                                                    <button class="carousel-control-prev"
+                                                                            type="button"
+                                                                            data-bs-target="#carouselExample_{{ product.id }}"
+                                                                            data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Previous</span>
+                                                                    </button>
+                                                                    <button class="carousel-control-next"
+                                                                            type="button"
+                                                                            data-bs-target="#carouselExample_{{ product.id }}"
+                                                                            data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Next</span>
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <br>
+                                                                <h2>{{ product.title }}</h2>
+                                                                <button class="btn btn-primary"
+                                                                        disabled>
+                                                                    {{ product.price }}
+                                                                    $
+                                                                </button>
+                                                                <table class="table">
+                                                                    <tr>
+                                                                        <td><b>Manufacturer</b>
+                                                                        </td>
+                                                                        <td>{{ product.manufacturer }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Model</b>
+                                                                        </td>
+                                                                        <td>{{ product.model_name }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Description</b>
+                                                                        </td>
+                                                                        <td>{{ product.description }}</td>
+                                                                    </tr>
+                                                                </table>
+                                                                <div class="btn-group"
+                                                                     role="group"
+                                                                     aria-label="Basic mixed styles example">
+                                                                    <a type="button" href="{% url 'add-to-cart' product.id %}"
+                                                                            class="btn btn-secondary"
+                                                                            data-bs-container="body"
+                                                                            data-bs-toggle="popover"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-trigger="hover focus"
+                                                                            data-bs-delay='{"show": 0, "hide": 1000}'
+                                                                            data-bs-html="true"
+                                                                            data-bs-content="<div>
+                                                                                <a href='{% url 'cart-list' %}' class='btn btn-outline-secondary'>
+                                                                                    View cart
+                                                                                </a>
+                                                                            </div>">
+                                                                        <span class="material-symbols-outlined vcenter">shopping_cart</span>
+                                                                    </a>
+                                                                    <a type="button" href="{% url 'add-to-wishlist' product.id %}"
+                                                                            class="btn btn-danger"
+                                                                            data-bs-container="body"
+                                                                            data-bs-toggle="popover"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-trigger="hover focus"
+                                                                            data-bs-html="true"
+                                                                            data-bs-delay='{"show": 0, "hide": 1000}'
+                                                                            data-bs-content="<div>
+                                                                                <a href='{% url 'wish-list' %}' class='btn btn-outline-danger'>
+                                                                                    View favorites
+                                                                                </a>
+                                                                            </div>">
+                                                                        <span class="material-symbols-outlined vcenter">favorite</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'add-to-wishlist' product.id %}"
+                                           class="btn btn-outline-danger btn-sm vcenter">
+                                            <span class="material-symbols-outlined">
+                                                favorite
+                                            </span>
+                                        </a>
+                                        <a href="{% url 'create-rating' %}"
+                                           class="btn btn-outline-danger btn-sm vcenter">
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

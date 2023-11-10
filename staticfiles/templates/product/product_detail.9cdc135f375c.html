@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %} Details of Product - {{ product }} {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="row">
+                    <div class="col-md-6 details-back">
+
+                        <div id="carouselExample" class="carousel slide">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="{{ product.image.url }}"
+                                         class="d-block w-100"
+                                         alt="image">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ product.image_1.url }}"
+                                         class="d-block w-100"
+                                         alt="image 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ product.image_2.url }}"
+                                         class="d-block w-100"
+                                         alt="image 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ product.image_3.url }}"
+                                         class="d-block w-100"
+                                         alt="image 3">
+                                </div>
+                            </div>
+
+                            <button class="carousel-control-prev"
+                                    type="button"
+                                    data-bs-target="#carouselExample"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon"
+                                          aria-hidden="false"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next"
+                                    type="button"
+                                    data-bs-target="#carouselExample"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon"
+                                          aria-hidden="false"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <br>
+                        <h1>{{ product.title }}</h1>
+                        <button  class="btn btn-primary" disabled>
+                            {{ product.price }} $
+                        </button>
+                        <table class="table">
+                            <tr>
+                                <td><b>Manufacturer</b></td>
+                                <td>{{ product.manufacturer }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Model</b></td>
+                                <td>{{ product.model_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Description</b></td>
+                                <td>{{ product.description }}</td>
+                            </tr>
+                        </table>
+                        <div class="btn-group" role="group"
+                             aria-label="Basic mixed styles example">
+                            <a type="button" href="{% url 'add-to-cart' product.id %}" class="btn btn-secondary"
+                                    data-bs-container="body"
+                                    data-bs-toggle="popover"
+                                    data-bs-placement="bottom"
+                                    data-bs-trigger="hover focus"
+                                    data-bs-delay='{"show": 0, "hide": 1000}'
+                                    data-bs-html="true"
+                                    data-bs-content="<div>
+                                        <a class='btn btn-outline-dark'>View cart</a>
+                                    </div>">
+                                <span class="material-symbols-outlined vcenter">shopping_cart</span>
+                            </a>
+                            <a type="button" href="{% url 'add-to-wishlist' product.id %}" class="btn btn-danger"
+                                    data-bs-container="body"
+                                    data-bs-toggle="popover"
+                                    data-bs-placement="bottom"
+                                    data-bs-trigger="hover focus"
+                                    data-bs-html="true"
+                                    data-bs-delay='{"show": 0, "hide": 1000}'
+                                    data-bs-content="<div>
+                                        <a class='btn btn-outline-dark'>View favorites</a>
+                                    </div>">
+                                <span class="material-symbols-outlined vcenter">favorite</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    Created at: <strong>
+                    {{ product.created_at|date:"d-m-Y H:i:s" }}</strong>
+                    Updated at: <strong>
+                    {{ product.updated_at|date:"d-m-Y H:i:s" }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

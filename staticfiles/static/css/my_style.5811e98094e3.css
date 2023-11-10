@@ -1,0 +1,100 @@
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.btn-link,
+a {
+    text-decoration: none;
+    color: rgb(0,0,0);
+    padding: 0 12px;
+}
+
+.btn {
+    margin: 0 2px;
+}
+
+.on-top {
+    position: fixed;
+    top: 0;
+    width: 90vw;
+    margin: 0 5%;
+    border-bottom: #dd3b3b;
+    border-bottom-style: solid;
+    border-bottom-width: thick;
+    height: 13.75vh;
+}
+
+.some-text {
+    margin-top: 125px;
+}
+
+.from-pop {
+    width: 600px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    opacity: 90%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 260%;
+    left: 21vw;
+}
+
+.popover {
+    border-style: none;
+}
+
+.back-btn {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.col-md-4 {
+    padding-top: 10px;
+}
+
+.nav-holder {
+    display: flex;
+    background-color: #ffffff;
+    position: fixed;
+    width: 100vw;
+    height: 13.75vh;
+}
+
+.content-holder {
+    position: absolute;
+    top: 13.75vh;
+}
+
+.card-title {
+    background-color: #dd3b3b;
+    color: #ffffff;
+}
+
+.model-border {
+    border-style: solid;
+    border-color: #8c8989;
+    border-width: thin;
+}
+
+.details-back {
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-item {
+    background-color: #d3d3d3;
+}
+
+.slider-div {
+    height: 500px;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.slider-img {
+    max-width: 100%;
+    max-height: 100%;
+}

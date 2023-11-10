@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} Give a rating {% endblock %}
+
+{%  block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Product rating</h4>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {% for field in form %}
+                                                {% if forloop.counter < 4 %}
+                                                    <label class="form-label">{{ field.label }}</label>{{ field }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {% for field in form %}
+                                                {% if forloop.counter >= 4 %}
+                                                    <label class="form-label">{{ field.label }}</label>
+                                                    {{ field }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn
+                            btn-outline-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%  endblock %}

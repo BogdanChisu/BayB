@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Details of category - {{ category }} {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card text-center">
+                    <div class="card-header">
+                        Category Details
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ category.name }}
+                            {{ category.name }}</h5>
+                        <p class="card-text"><strong>Special character:
+                            {{ category.special_character }}</strong></p>
+                        <a href="{% url 'list-of-categories' %}" class="btn
+                        btn-secondary">Back</a>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        Created at: <strong>
+                        {{ category.created_at|date:"d-m-Y H:i:s" }}</strong>
+                        Updated at: <strong>
+                        {{ category.updated_at|date:"d-m-Y H:i:s" }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

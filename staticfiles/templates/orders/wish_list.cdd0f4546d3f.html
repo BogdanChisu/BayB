@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Wish List {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content-holder">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {{ current_datetime|date:"d-m-Y H:i:s" }}
+                {% if user.is_authenticated %}
+                    {% if wish_products %}
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product name</th>
+                                <th>Image</th>
+                                <th>Unit Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for wish_product in wish_products %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ wish_product.product.title }}</td>
+                                    <td><img src="{{ wish_product.product.image.url }}" alt="prod_image" height="100px" width="auto"></td>
+                                    <td>{{ wish_product.product.price }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'delete-from-wishlist' wish_product.id %}" class="btn btn-outline-danger btn-sm">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </a>
+                                            <a href="{% url 'move-favorites-to-cart' wish_product.id %}" class="btn btn-outline-secondary btn-sm">
+                                                <span class="material-symbols-outlined">shopping_cart</span>
+                                            </a>
+                                        </div>
+
+                                    </td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <br>
+                        <div class="alert alert-dark" role="alert">
+                            <h3>The favorites list waits for your choices!</h3>
+                            <hr>
+                            <p>This link will redirect you to our
+                                <a class="btn btn-outline-danger btn-sm"
+                                   href="{% url 'home' %}">
+                                    <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                        home
+                                    </span>home
+                                </a> page.
+                            </p>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <br>
+                    <div class="alert alert-dark" role="alert">
+                        <h3>Please login to use the favorites!</h3>
+                        <hr>
+                        <p>This link will redirect you to the
+                            <a class="btn btn-outline-danger btn-sm"
+                               href="{% url 'login' %}">
+                                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                    login
+                                </span>&nbsp;login
+                            </a> page.
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
