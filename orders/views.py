@@ -159,8 +159,8 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
             new_order.user_id = self.request.user.id
 
             # order number
-            generic_order = randint(1, 100)
-            new_order.order_number = f'ESHOP_{generic_order}'
+            generic_order = PlaceOrder.objects.count()
+            new_order.order_number = f'Bay-B{generic_order}'
 
             # product list
             products = {'data': []}
@@ -170,8 +170,9 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
 
             for item in products_per_user:
                 products['data'].append({'title': item.product.title,
+                                         'price': f'{item.product.price}',
                                          'quantity': item.quantity,
-                                         'price': f'{item.product.price * item.quantity}'
+                                         'amount': f'{item.product.price * item.quantity}'
                                          })
                 final_price += item.product.price * item.quantity
 
