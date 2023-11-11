@@ -1,23 +1,23 @@
 import os
 from datetime import datetime
-from io import BytesIO
 
 from pprint import pprint
-from random import randint
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
+from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect, request
 from django.shortcuts import  redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
-from reportlab.lib.pagesizes import A4
-from reportlab.pdfgen import canvas
+
 
 from orders.forms import PlaceOrderForm
 from orders.models import OrderCart, PlaceOrder
 from orders.utils import generate_order_pdf
+
+from django.core.mail import EmailMultiAlternatives
 
 
 class OrderCartListView(ListView):
@@ -201,24 +201,29 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
 
 
             # send order details by email
-            # subject = f"Thank you {self.request.user} for shopping at BayB!"
-            # from_email = "office@bogdan-chisu.ro"
-            # to = f"{self.request.user.email}"
-            # context = new_order.product_list
-            # context['data'].append({'title': '',
-            #                         'quantity': 'Grand Total',
-            #                         'price': new_order.price})
-            # html_content = get_template("orders/order_details.html").render(
-            #     context)
-            # pprint(context)
-            # msg = EmailMultiAlternatives(
-            #     subject,
-            #     html_content,
-            #     from_email,
-            #     [to]
-            # )
-            # msg.content_subtype = 'html'
-            #
-            # msg.send()
+            subject = f"Thank you for shopping at BayB!"
+            from_email = "office@bogdan-chisu.ro"
+            to = f"{self.request.user.email}"
+            text_content = ("Please have the details from this email available "
+                            "in case you have questions about your order")
+            html_content = ("<h3><p>Thank you for your order,</p>"
+                            "<br>"
+                            "<p>Please find enclosed in the attachment "
+                            "the details of your order""</p>"
+                            "<p>Warmest regards,</p>"
+                            "<p>Your <b style='color: red;'>Bay-B</b> team!</p>")
+
+
+            email = EmailMultiAlternatives(subject, text_content, from_email, [to])
+
+            # Attach the PDF file
+            pdf_file_name = f'Bay-B{new_order.id}_invoice.pdf'
+            print(f'The order file is: {pdf_file_name}')
+            email.attach(pdf_file_name, new_order.pdf_file.read(),
+                         'application/pdf')
+            email.content_subtype = 'pdf'
+            email.attach_alternative(html_content, "text/html")
+
+            email.send()
 
             return redirect('home')
