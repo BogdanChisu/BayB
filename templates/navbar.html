@@ -28,9 +28,9 @@
                                 Categories
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url
-                                'list-of-categories' %}">List of
-                                    categories</a></li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'list-of-categories' %}">
+                                    List of categories</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -49,8 +49,10 @@
                                 Products
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url
-                                'list-of-products' %}">List of products</a></li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'list-of-products' %}">
+                                    List of products</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -69,7 +71,8 @@
                             <ul class="dropdown-menu">
                                 {% for category in all_categories %}
                                     <li>
-                                        <a class="dropdown-item vcenter" href="{% url 'products-by-category' category.id %}">
+                                        <a class="dropdown-item vcenter"
+                                           href="{% url 'products-by-category' category.id %}">
                                             <span class="material-symbols-outlined">
                                                 {{ category.special_character }}
                                             </span>&nbsp
