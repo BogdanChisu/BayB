@@ -6,7 +6,6 @@ from pprint import pprint
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
-from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect, request
 from django.shortcuts import  redirect
 from django.urls import reverse_lazy
@@ -204,9 +203,8 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
             subject = f"Thank you for shopping at BayB!"
             from_email = "office@bogdan-chisu.ro"
             to = f"{self.request.user.email}"
-            text_content = ("Please have the details from this email available "
-                            "in case you have questions about your order")
-            html_content = ("<h3><p>Thank you for your order,</p>"
+            text_content = None
+            html_content = ("<h3><p>Thank you for your order,</p></h3>"
                             "<br>"
                             "<p>Please find enclosed in the attachment "
                             "the details of your order""</p>"

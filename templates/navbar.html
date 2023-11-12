@@ -1,4 +1,5 @@
 {% load static %}
+
 <div class="nav-holder">
     <nav class="navbar navbar-expand-lg bg-body-tertiary on-top">
         <div class="container-fluid">
@@ -19,14 +20,16 @@
 
                     {% if request.user.is_superuser or perms.product.add_product %}
                         <li class="nav-item dropdown">
-                            <a class="btn btn-danger dropdown-toggle vcenter" href="#"
-                               role="button" data-bs-toggle="dropdown"
+                            <a class="btn btn-danger dropdown-toggle vcenter"
+                               href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                <span class="material-symbols-outlined">view_list</span>
+                                <span class="material-symbols-outlined">
+                                    view_list</span>
                                 Categories
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'list-of-categories' %}">List of
+                                <li><a class="dropdown-item" href="{% url
+                                'list-of-categories' %}">List of
                                     categories</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -38,15 +41,16 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="btn btn-danger dropdown-toggle vcenter" href="#"
-                               role="button" data-bs-toggle="dropdown"
+                            <a class="btn btn-danger dropdown-toggle vcenter"
+                               href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                <span class="material-symbols-outlined">category</span>
+                                <span class="material-symbols-outlined">
+                                    category</span>
                                 Products
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'list-of-products' %}">List of
-                                    products</a></li>
+                                <li><a class="dropdown-item" href="{% url
+                                'list-of-products' %}">List of products</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -56,29 +60,34 @@
                             </ul>
                         </li>
                     {% else %}
-                    <li class="nav-item dropdown">
-                        <a class="btn btn-danger dropdown-toggle" href="#"
-                           role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            All categories
-                        </a>
-                        <ul class="dropdown-menu">
-                            {% for category in all_categories %}
-                                <li>
-                                    <a class="dropdown-item" href="{% url 'products-by-category' category.id %}">{{ category.name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-danger dropdown-toggle" href="#"
+                               role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                All categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for category in all_categories %}
+                                    <li>
+                                        <a class="dropdown-item vcenter" href="{% url 'products-by-category' category.id %}">
+                                            <span class="material-symbols-outlined">
+                                                {{ category.special_character }}
+                                            </span>&nbsp
+                                            {{ category.name }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
 
-                    <li>
-                        <a href="#" type="button" class="btn btn-danger">Daily
-                            Special Offer</a>
-                    </li>
-                    <li>
-                        <a href="#" type="button" class="btn btn-secondary">Used
-                            but useful</a>
-                    </li>
+                        <li>
+                            <a href="#" type="button" class="btn btn-outline-danger">
+                                Daily Special Offer</a>
+                        </li>
+                        <li>
+                            <a href="#" type="button" class="btn btn-secondary">
+                                Used but useful</a>
+                        </li>
                     {% endif %}
                 </ul>
 
@@ -99,40 +108,52 @@
                             data-bs-html="true"
 
                             {% if user.is_authenticated %}
-                            data-bs-title="Thank you for visiting {{ user.first_name }} "
+                            data-bs-title="Thank you for visiting
+                            {{ user.first_name }} "
                             data-bs-content="<div>
-                                        <a href='{% url 'logout' %}' class='btn btn-dark'>Logout</a>
-                                        <a href='{% url 'password_change' %}' class='btn btn-outline-dark'>Change password</a>
+                                        <a href='{% url 'logout' %}'
+                                        class='btn btn-dark'>Logout</a>
+                                        <a href='{% url 'password_change' %}'
+                                        class='btn btn-outline-dark'>Change
+                                        password</a>
                                     </div>"
                             {% else %}
                             data-bs-title="Login an enjoy!"
                             data-bs-content="<div>
-                                    <a href='{% url 'login' %}' class='btn btn-dark'>Login</a>
-                                    <a href='{% url 'create-user' %}' class='btn btn-outline-dark'>Create account</a>
+                                    <a href='{% url 'login' %}'
+                                    class='btn btn-dark'>Login</a>
+                                    <a href='{% url 'create-user' %}'
+                                    class='btn btn-outline-dark'>Create
+                                    account</a>
                                 </div>"
                             {% endif %}
 
                             data-bs-trigger="hover focus">
                         <span
-                                class="material-symbols-outlined">account_circle</span>My account
+                            class="material-symbols-outlined">
+                            account_circle</span>My account
                     </button>
-                    <a href="{% url 'wish-list' %}" type="button" class="btn btn-danger vcenter"
+                    <a href="{% url 'wish-list' %}" type="button"
+                       class="btn btn-danger vcenter"
                             data-bs-toggle="popover"
                             data-bs-trigger="hover focus"
                             data-bs-title="Favorites"
-                            data-bs-content="All your favorite items, one click away!">
+                            data-bs-content="All your favorite items, one click
+                             away!">
                         <span class="material-symbols-outlined">favorite</span>
                         Favorites
                     </a>
-                    <a href="{% url 'cart-list' %}" class="btn btn-secondary vcenter"
-                            data-bs-container="body" data-bs-toggle="popover"
-                            data-bs-placement="bottom"
-                            data-bs-delay='{"show": 0, "hide": 1000}'
-                            data-bs-html="true"
-                            data-bs-title="Cart details"
-                            data-bs-content="All your chosen items"
-                            data-bs-trigger="hover focus">
-                        <span class="material-symbols-outlined">shopping_cart</span>Cart
+                    <a href="{% url 'cart-list' %}"
+                       class="btn btn-secondary vcenter"
+                       data-bs-container="body" data-bs-toggle="popover"
+                       data-bs-placement="bottom"
+                       data-bs-delay='{"show": 0, "hide": 1000}'
+                       data-bs-html="true"
+                       data-bs-title="Cart details"
+                       data-bs-content="All your chosen items"
+                       data-bs-trigger="hover focus">
+                       <span class="material-symbols-outlined">shopping_cart
+                       </span>Cart
                     </a>
                 </div>
             </div>
