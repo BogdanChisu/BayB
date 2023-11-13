@@ -61,11 +61,13 @@ a {
     position: fixed;
     width: 100vw;
     height: 13.75vh;
+    z-index: 2;
 }
 
 .content-holder {
     position: absolute;
-    top: 13.75vh;
+    top: 13.75vh;{% include 'navbar.html' %}
+    z-index: 1;
 }
 
 .card-title {
@@ -105,3 +107,9 @@ a {
     justify-content: center;
     align-items: center;
 }
+
+/*.modal,*/
+/*.modal-dialog,*/
+/*.modal-content {*/
+/*    z-index: 2;*/
+/*}*/
