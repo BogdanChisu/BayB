@@ -16,14 +16,16 @@
                             <br>
                             <div class="card">
                                 {% if product.image %}
-                                    <img src="{{ product.image.url }}"
+                                    <img class="prod-imag"
+                                            src="{{ product.image.url }}"
                                          alt="product image">
                                 {% else %}
                                     <div class="text-center">
                                         <img src="{% static 'images/01default_product.jpg' %}" height="140px" width="auto" alt="default image">
                                     </div>
                                 {% endif %}
-                                <h5 class="card-title text-center">{{ product.manufacturer }} {{ product.model_name }}</h5>
+                                <button class="btn btn-danger text-center" disabled><b>{{ product.manufacturer }} {{ product.model_name }}</b>
+                                </button>
                                 <div class="card-body">
                                     <p><b>Price: {{ product.price }}</b></p>
                                     <div class="btn-group" role="group">
@@ -107,7 +109,7 @@
                                                                 <button class="btn btn-primary"
                                                                         disabled>
                                                                     {{ product.price }}
-                                                                    $
+                                                                    RON
                                                                 </button>
                                                                 <table class="table">
                                                                     <tr>
