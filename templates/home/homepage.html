@@ -51,9 +51,12 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row row-btns">
-                        <div class="col-md-6">
-                            <img src="{% static 'images/sign_up_business.jpg' %}"
-                                 alt="Contact/Sign up" width="100%" height="auto">
+                        <div class="col-md-6 div-sign-up-link">
+                            <a class="sign-up-link" href="{% url 'create-business-user' %}">
+                                <img src="{% static 'images/sign_up_business.jpg' %}"
+                                    alt="Contact/Sign up" width="100%"
+                                     height="auto">
+                            </a>
                         </div>
                         <div class="col-md-6 contact-btns">
                             <div class="card text-center card-btns">
@@ -64,7 +67,8 @@
                                             how_to_reg
                                         </span>&nbsp;
                                         <b class="sign-up-txt">
-                                            Sign Up Business
+                                            Sign Up For a Business Account and
+                                            Start Selling on Bay-B
                                         </b>
                                     </a>
                                 </div>
@@ -86,7 +90,6 @@
                                         <a class="btn btn-outline-danger">
                                             <img src="{% static 'images/instagram_icon.png' %}"
                                                  alt="whatsapp-icon" height="25px">
-                                            &nbsp;
                                             Instagram
                                         </a>
                                     </div>

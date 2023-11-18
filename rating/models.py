@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from product.models import Product
+from userextend.models import CustomUser
 
 
 # Create your models here.
@@ -15,7 +16,7 @@ class Rating(models.Model):
         ('5', 'Very satisfied'),
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     rating_val = models.CharField(choices=rating_options, max_length=1,
                                   default=5)

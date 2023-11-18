@@ -7,4 +7,3 @@ class ProductFilter(django_filters.FilterSet):
     class Meta:
         model = Product
         fields = ['manufacturer', 'model_name', 'price']
-

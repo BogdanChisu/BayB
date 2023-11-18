@@ -2,10 +2,12 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, \
     PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 
+from userextend.models import CustomUser
+
 
 class UserForm(UserCreationForm):
     class Meta:
-        model = User
+        model = CustomUser
         fields = ('first_name', 'last_name', 'email')
 
     def __init__(self, *args, **kwargs):
@@ -24,20 +26,22 @@ class UserForm(UserCreationForm):
 
 class UserBusinessForm(UserCreationForm):
     class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email')
+        model = CustomUser
+        fields = ('first_name', 'last_name', 'email', 'company_name')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['first_name'].widget.attrs.update({'class': 'form-control',
-                                                       'placeholder': 'Please enter your company name'})
+                                                       'placeholder': 'Please enter your first name'})
         self.fields['last_name'].widget.attrs.update({'class': 'form-control',
                                                       'placeholder': 'Please enter your last name'})
         self.fields['email'].widget.attrs.update({'class': 'form-control',
-                                                  'placeholder': 'Please specify your e-mail address'})
+                                                  'placeholder': 'Please specify your e-mail address'}),
+        self.fields['company_name'].widget.attrs.update({'class': 'form-control',
+                                                         'placeholder': 'Please specify the name of your company'}),
         self.fields['password1'].widget.attrs.update({'class': 'form-control',
-                                                      'placeholder': 'Enter password'})
+                                                      'placeholder': 'Enter password'}),
         self.fields['password2'].widget.attrs.update({'class': 'form-control',
                                                       'placeholder': 'Confirm password'})
 

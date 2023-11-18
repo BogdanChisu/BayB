@@ -8,14 +8,14 @@ from django.views.generic import CreateView
 
 from EcommercePlatform.settings import EMAIL_HOST_USER
 from userextend.forms import UserForm, UserBusinessForm
-from userextend.models import History
+from userextend.models import History, CustomUser
 
 
 # Create your views here.
 
 
 def check_username(usr_name):
-    all_users = User.objects.filter(username=usr_name)
+    all_users = CustomUser.objects.filter(username=usr_name)
     user_name_initial = usr_name
     user_count = 0
     while len(all_users) > 0:
@@ -27,7 +27,7 @@ def check_username(usr_name):
 
 class UserCreateView(CreateView):
     template_name = 'userextends/create_user.html'
-    model = User
+    model = CustomUser
     form_class = UserForm
     success_url = reverse_lazy('home')
 
@@ -58,8 +58,8 @@ class UserCreateView(CreateView):
             return redirect('login')
 
 class UserBusinessCreateview(CreateView):
-    template_name = 'userextends/create_user.html'
-    model = User
+    template_name = 'userextends/create_business_user.html'
+    model = CustomUser
     form_class = UserBusinessForm
     success_url = reverse_lazy('home')
 
@@ -68,11 +68,12 @@ class UserBusinessCreateview(CreateView):
             new_user = form.save(commit=False)
             new_user.first_name = new_user.first_name.title()
             new_user.last_name = new_user.last_name.title()
+            new_user.company_name = new_user.company_name.title()
             get_group = Group.objects.get(name='Business')
 
 
             generate_username = f'{new_user.first_name[0].lower()}_{new_user.last_name.lower().replace(" ", "")}'
-            if User.objects.filter(username=generate_username).exists:
+            if CustomUser.objects.filter(username=generate_username).exists:
                 new_user.username = check_username(generate_username)
             else:
                 new_user.username = (f'{new_user.first_name[0].lower()}_{new_user.last_name.lower().replace(" ", "")}')

@@ -1,9 +1,15 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 
+from django.contrib.auth.models import BaseUserManager
 
-# Create your models here.
+from userextend.managers import CustomUserManager
 
+
+class CustomUser(AbstractUser):
+    company_name = models.CharField(max_length=50, blank=True, null=True)
+
+    objects = CustomUserManager()
 
 class History(models.Model):
     text = models.TextField(max_length=200)

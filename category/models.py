@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 
+from userextend.models import CustomUser
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -16,7 +18,7 @@ class Category(models.Model):
 class HistoryCategory(models.Model):
     message = models.TextField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.message

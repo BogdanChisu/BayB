@@ -108,8 +108,9 @@ a {
     align-items: center;
 }
 
-/*.modal,*/
-/*.modal-dialog,*/
-/*.modal-content {*/
-/*    z-index: 2;*/
-/*}*/
+.sign-up-link,
+.row-btns,
+.div-sign-up-link {
+    padding: 0;
+    margin: 0;
+}

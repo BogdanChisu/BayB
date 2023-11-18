@@ -1,11 +1,11 @@
-from django.contrib.auth.models import User
 from django.db import models
 
 from product.models import Product
+from userextend.models import CustomUser
 
 
 class OrderCart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cart_item = models.BooleanField(default=False)
     wishlist_item = models.BooleanField(default=False)
@@ -20,7 +20,7 @@ class OrderCart(models.Model):
 
 
 class PlaceOrder(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     product_list = models.JSONField(null=True)
     order_number = models.CharField(max_length=50)
     delivery_address = models.TextField(max_length=100)
