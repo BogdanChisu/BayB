@@ -1,11 +1,9 @@
 from datetime import date
 from io import BytesIO
-from urllib.parse import urlparse
 
-import requests
-from PIL import Image
 from reportlab.lib.pagesizes import A4, letter
 from reportlab.lib.units import inch
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 
 from orders.models import OrderCart
@@ -95,7 +93,7 @@ def generate_order_pdf(order):
         user_id=order.user_id, cart_item=1)
 
     p.setFillColorRGB(0, 0, 0) # font color
-    p.setFont('Helvetica', 14)
+    p.setFont('Helvetica', 10)
     row_gap = 0.6*inch # gap between each row
     line_y = 7.9*inch # location of first product line
 
@@ -104,6 +102,11 @@ def generate_order_pdf(order):
         product = cart_item.product
         p.drawString(0.24*inch, line_y, f'{i}') # item count on order list
         p.drawString(0.6*inch, line_y, f'{product.title}')
+
+        line_y_image = line_y - 0.4*inch
+        print(product.image.url[1:])
+        p.drawImage(product.image.url[1:], 3*inch, line_y_image, height=0.6*inch, width=0.6*inch)
+
         p.drawString(4*inch, line_y, f'{product.price}')
         p.drawString(5.5*inch, line_y, f'{cart_item.quantity}')
         p.drawString(6.5*inch, line_y, f"{cart_item.quantity * product.price}")

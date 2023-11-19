@@ -39,7 +39,7 @@ class UserCreateView(CreateView):
             new_user.last_name = new_user.last_name.title()
 
             generate_username = f'{new_user.first_name[0].lower()}_{new_user.last_name.lower().replace(" ", "")}'
-            if User.objects.filter(username=generate_username).exists:
+            if CustomUser.objects.filter(username=generate_username).exists:
                 new_user.username = check_username(generate_username)
             else:
                 new_user.username = (f'{new_user.first_name[0].lower()}_{new_user.last_name.lower().replace(" ", "")}')
