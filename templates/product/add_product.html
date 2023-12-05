@@ -20,8 +20,8 @@
                                 {% for field in form %}
                                     {% if forloop.counter <= 4 %}
                                         <div class="mb-3">
-                                        <label class="form-label">{{ field.label }}: {{ field }}</label>
-                                        <span>{{ field.errors }}</span>
+                                            <label class="form-label">{{ field.label }}: {{ field }}</label>
+                                            <span>{{ field.errors }}</span>
                                         </div>
                                     {% endif %}
                                 {% endfor %}

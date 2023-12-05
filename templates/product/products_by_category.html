@@ -17,14 +17,18 @@
                             <div class="card">
                                 {% if product.image %}
                                     <img class="prod-imag"
-                                            src="{{ product.image.url }}"
+                                         src="{{ product.image.url }}"
                                          alt="product image">
                                 {% else %}
                                     <div class="text-center">
-                                        <img src="{% static 'images/01default_product.jpg' %}" height="140px" width="auto" alt="default image">
+                                        <img src="{% static 'images/01default_product.jpg' %}"
+                                             height="140px" width="auto"
+                                             alt="default image">
                                     </div>
                                 {% endif %}
-                                <button class="btn btn-danger text-center" disabled><b>{{ product.manufacturer }} {{ product.model_name }}</b>
+                                <button class="btn btn-danger text-center"
+                                        disabled>
+                                    <b>{{ product.manufacturer }} {{ product.model_name }}</b>
                                 </button>
                                 <div class="card-body">
                                     <p><b>Price: {{ product.price }}</b></p>
@@ -131,30 +135,32 @@
                                                                 <div class="btn-group"
                                                                      role="group"
                                                                      aria-label="Basic mixed styles example">
-                                                                    <a type="button" href="{% url 'add-to-cart' product.id %}"
-                                                                            class="btn btn-secondary"
-                                                                            data-bs-container="body"
-                                                                            data-bs-toggle="popover"
-                                                                            data-bs-placement="bottom"
-                                                                            data-bs-trigger="hover focus"
-                                                                            data-bs-delay='{"show": 0, "hide": 1000}'
-                                                                            data-bs-html="true"
-                                                                            data-bs-content="<div>
+                                                                    <a type="button"
+                                                                       href="{% url 'add-to-cart' product.id %}"
+                                                                       class="btn btn-secondary"
+                                                                       data-bs-container="body"
+                                                                       data-bs-toggle="popover"
+                                                                       data-bs-placement="bottom"
+                                                                       data-bs-trigger="hover focus"
+                                                                       data-bs-delay='{"show": 0, "hide": 1000}'
+                                                                       data-bs-html="true"
+                                                                       data-bs-content="<div>
                                                                                 <a href='{% url 'cart-list' %}' class='btn btn-outline-secondary'>
                                                                                     View cart
                                                                                 </a>
                                                                             </div>">
                                                                         <span class="material-symbols-outlined vcenter">shopping_cart</span>
                                                                     </a>
-                                                                    <a type="button" href="{% url 'add-to-wishlist' product.id %}"
-                                                                            class="btn btn-danger"
-                                                                            data-bs-container="body"
-                                                                            data-bs-toggle="popover"
-                                                                            data-bs-placement="bottom"
-                                                                            data-bs-trigger="hover focus"
-                                                                            data-bs-html="true"
-                                                                            data-bs-delay='{"show": 0, "hide": 1000}'
-                                                                            data-bs-content="<div>
+                                                                    <a type="button"
+                                                                       href="{% url 'add-to-wishlist' product.id %}"
+                                                                       class="btn btn-danger"
+                                                                       data-bs-container="body"
+                                                                       data-bs-toggle="popover"
+                                                                       data-bs-placement="bottom"
+                                                                       data-bs-trigger="hover focus"
+                                                                       data-bs-html="true"
+                                                                       data-bs-delay='{"show": 0, "hide": 1000}'
+                                                                       data-bs-content="<div>
                                                                                 <a href='{% url 'wish-list' %}' class='btn btn-outline-danger'>
                                                                                     View favorites
                                                                                 </a>

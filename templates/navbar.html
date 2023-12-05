@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    {% if request.user.is_superuser or perms.product.add_product %}
+                    {% if request.user.is_superuser or perms.category.add_category %}
                         <li class="nav-item dropdown">
                             <a class="btn btn-danger dropdown-toggle vcenter"
                                href="#" role="button" data-bs-toggle="dropdown"

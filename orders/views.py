@@ -188,7 +188,7 @@ class PlaceOrderCreateView(LoginRequiredMixin, CreateView):
             new_order.created_at = datetime.now()
             new_order.save()
 
-            # Generate pd and save it to the order
+            # Generate pdf and save it to the order
             pdf_content = generate_order_pdf(new_order)
             new_order.pdf_file.save(f"{new_order.order_number}_invoice.pdf",
                                     ContentFile(pdf_content.read()))
