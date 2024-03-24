@@ -34,6 +34,7 @@ urlpatterns = [
     path("", include("orders.urls")),
     path("", include("userextend.urls")),
     path("", include("rating.urls")),
+    path("", include("lilly_cici_sissy.urls")),
     path("login/", LoginView.as_view(form_class=AuthenticationNewForm), name="login"),
     path("password_change/", PasswordChangeView.as_view(form_class=PasswordChangeNewForm),name="password_change"),
     path("password_reset/", PasswordResetView.as_view(form_class=PasswordResetNewForm), name="password_reset"),

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "userextend",
     "orders",
     "rating",
-
+    "lilly_cici_sissy",
 ]
 
 MIDDLEWARE = [
