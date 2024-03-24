@@ -127,3 +127,26 @@ a {
     justify-content: center;
     align-items: center;
 }
+
+.puppyname {
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    flex-direction: column;
+}
+
+.cici {
+    font-size: 32px;
+}
+
+.puphold {
+    position: relative;
+    min-height: 200px;
+}
+
+.pupname {
+    color: #ffc989;
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+}
