@@ -153,7 +153,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'mail.bogdan-chisu.ro'
 EMAIL_HOST_USER = 'office@bogdan-chisu.ro'
-EMAIL_HOST_PASSWORD = '*********'
+EMAIL_HOST_PASSWORD = 'DarkKnightRising!@12'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = 'True'
 DEFAULT_FROM_EMAIL: "office@bogdan-chisu.ro"
