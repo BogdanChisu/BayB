@@ -131,17 +131,8 @@ a {
 .puppyname {
     display: flex;
     align-items: center;
-    /*justify-content: center;*/
+    justify-content: center;
     flex-direction: column;
-}
-
-.cici {
-    font-size: 32px;
-}
-
-.puphold {
-    position: relative;
-    min-height: 200px;
 }
 
 .pupname {
@@ -149,4 +140,12 @@ a {
     position: absolute;
     bottom: 2px;
     left: 2px;
+}
+
+.pupimage {
+    max-height: 300px;
+    max-width: 300px;
+    border-radius: 20px;
+    width: auto;
+    height: auto;
 }
