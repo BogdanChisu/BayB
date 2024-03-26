@@ -157,3 +157,8 @@ EMAIL_HOST_PASSWORD = 'DarkKnightRising!@12'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = 'True'
 DEFAULT_FROM_EMAIL: "office@bogdan-chisu.ro"
+
+# HTTPS settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+
